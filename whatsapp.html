@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Studi on WhatsApp — StudyIn conversation UX</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --n0:#070B1F; --n1:#0A1030; --n2:#0D1638; --n3:#101C45; --n4:#16255A;
+  --lime:#B8FF6A; --glow:#FFE66D; --glow-2:#FFD84A; --cta:#F5335B; --cta-h:#FF4E71;
+  --text:#EDF1FF; --muted:#9FAAD1; --faint:#6B77A3;
+  /* authentic WhatsApp dark-mode tokens — not invented */
+  --wa-bg:#0B141A; --wa-head:#202C33; --wa-in:#202C33; --wa-out:#005C4B;
+  --wa-green:#25D366; --wa-tick:#53BDEB; --wa-txt:#E9EDEF; --wa-sub:#8696A0;
+  --serif:'Fraunces',Georgia,serif; --sans:'Hanken Grotesk',system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--sans);color:var(--text);background:var(--n0);-webkit-font-smoothing:antialiased}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(800px 600px at 80% 0%,rgba(22,37,90,.8),transparent 60%),
+             radial-gradient(700px 500px at 5% 40%,rgba(13,22,56,.9),transparent 60%),
+             linear-gradient(180deg,#070B1F,#0A1030 40%,#0D1638 75%,#070B1F)}
+.page{position:relative;z-index:1;max-width:1280px;margin:0 auto;padding:0 26px 90px}
+h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.08;letter-spacing:-.015em;margin:0}
+p{margin:0;line-height:1.62}
+a{color:inherit}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--glow);outline-offset:3px;border-radius:6px}
+
+/* ---------- masthead ---------- */
+header.top{padding:58px 0 40px;display:flex;gap:26px;align-items:flex-start;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:9px}
+.logo svg{width:24px;height:24px}
+.logo span{font-weight:800;font-size:20px;letter-spacing:-.02em}
+.tagline{display:inline-flex;align-items:center;gap:9px;font-size:12.5px;font-weight:600;color:#D7FFB0;
+  background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.35);padding:6px 13px;border-radius:999px}
+.tagline i{width:7px;height:7px;border-radius:50%;background:var(--wa-green);box-shadow:0 0 10px 2px rgba(37,211,102,.8)}
+h1{font-size:clamp(34px,4.6vw,58px);max-width:17ch;margin-top:22px}
+.sub{margin-top:18px;color:var(--muted);font-size:17px;max-width:56ch}
+
+/* ---------- layout ---------- */
+.split{display:grid;grid-template-columns:1fr 400px;gap:52px;align-items:start;margin-top:52px}
+
+/* ---------- feature tabs ---------- */
+.tabs{display:grid;gap:12px}
+.tab{position:relative;text-align:left;width:100%;padding:22px 24px;border-radius:18px;
+  border:1px solid rgba(159,170,209,.15);background:linear-gradient(170deg,rgba(13,22,56,.8),rgba(7,11,31,.5));
+  transition:border-color .3s,background .3s,transform .3s}
+.tab:hover{border-color:rgba(255,230,109,.35);transform:translateY(-2px)}
+.tab.on{border-color:rgba(184,255,106,.55);background:linear-gradient(170deg,rgba(22,37,90,.9),rgba(10,16,48,.7));
+  box-shadow:0 0 0 1px rgba(184,255,106,.18),0 18px 50px -26px rgba(184,255,106,.5)}
+.tab .row{display:flex;align-items:center;gap:13px}
+.tab .n{width:26px;height:26px;flex:none;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:800;
+  background:rgba(255,230,109,.12);border:1px solid rgba(255,230,109,.3);color:var(--glow)}
+.tab.on .n{background:var(--lime);border-color:var(--lime);color:#062009;box-shadow:0 0 20px -2px rgba(184,255,106,.7)}
+.tab h3{font-family:var(--sans);font-weight:700;font-size:18px;letter-spacing:-.01em}
+.tab p{margin-top:11px;font-size:14.6px;color:var(--muted)}
+.tab .play{margin-top:15px;font-size:13px;font-weight:700;color:var(--lime);opacity:.55;transition:opacity .3s}
+.tab.on .play,.tab:hover .play{opacity:1}
+
+/* detail drawer inside active tab */
+.detail{display:none;margin-top:20px;padding-top:18px;border-top:1px solid rgba(159,170,209,.16)}
+.tab.on .detail{display:block}
+.detail h4{margin:0 0 12px;font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--faint);font-weight:700}
+.detail ul{margin:0;padding:0;list-style:none;display:grid;gap:10px}
+.detail li{position:relative;padding-left:20px;font-size:14.2px;color:#C6CFEC;line-height:1.55}
+.detail li::before{content:'';position:absolute;left:2px;top:8px;width:7px;height:7px;border-radius:50%;
+  background:var(--glow);box-shadow:0 0 9px 1px rgba(255,216,74,.7)}
+.detail .chipset{display:flex;flex-wrap:wrap;gap:7px;margin-top:15px}
+.detail .chipset span{font-size:11.5px;font-weight:600;padding:5px 11px;border-radius:999px;
+  background:rgba(184,255,106,.09);border:1px solid rgba(184,255,106,.28);color:var(--lime)}
+
+/* ---------- phone ---------- */
+.stick{position:sticky;top:26px}
+.phone{width:100%;max-width:392px;margin:0 auto;border-radius:38px;padding:11px;
+  background:linear-gradient(160deg,#1d2740,#0b1020);border:1px solid rgba(159,170,209,.22);
+  box-shadow:0 50px 110px -40px rgba(0,0,0,.95),0 0 0 1px rgba(255,255,255,.03) inset}
+.screen{border-radius:29px;overflow:hidden;background:var(--wa-bg);display:flex;flex-direction:column;height:660px}
+.statusbar{background:var(--wa-head);color:var(--wa-txt);font-size:11.5px;display:flex;justify-content:space-between;
+  padding:9px 18px 3px;font-weight:600;opacity:.8}
+.wahead{background:var(--wa-head);display:flex;align-items:center;gap:11px;padding:9px 14px 11px}
+.wahead .back{color:var(--wa-sub);font-size:19px;line-height:1}
+.avatar{width:40px;height:40px;border-radius:50%;flex:none;overflow:hidden;background:#0A1030;
+  display:grid;place-items:center;border:1px solid rgba(255,216,74,.3)}
+.avatar svg{width:34px;height:auto;overflow:visible}
+.wahead .who b{display:block;font-size:15.5px;color:var(--wa-txt);font-weight:600;line-height:1.25}
+.wahead .who span{font-size:12.5px;color:var(--wa-sub)}
+.wahead .icons{margin-left:auto;display:flex;gap:16px;color:var(--wa-sub);font-size:15px}
+.verified{display:inline-block;width:13px;height:13px;vertical-align:-2px;margin-left:4px}
+
+.thread{flex:1;overflow-y:auto;padding:14px 12px 18px;display:flex;flex-direction:column;gap:5px;
+  background-color:var(--wa-bg);
+  background-image:radial-gradient(rgba(255,255,255,.022) 1px,transparent 1px);background-size:22px 22px;
+  scroll-behavior:smooth}
+.thread::-webkit-scrollbar{width:5px}
+.thread::-webkit-scrollbar-thumb{background:rgba(134,150,160,.3);border-radius:9px}
+
+.msg{max-width:82%;padding:7px 10px 6px;border-radius:9px;font-size:14.1px;line-height:1.45;color:var(--wa-txt);
+  position:relative;animation:pop .26s ease-out;white-space:pre-wrap;word-wrap:break-word}
+@keyframes pop{from{opacity:0;transform:translateY(7px) scale(.98)}to{opacity:1;transform:none}}
+.msg.in{background:var(--wa-in);align-self:flex-start;border-top-left-radius:2px}
+.msg.out{background:var(--wa-out);align-self:flex-end;border-top-right-radius:2px}
+.msg .time{float:right;font-size:10.5px;color:var(--wa-sub);margin:6px 0 -2px 9px;line-height:1}
+.msg.out .time{color:rgba(233,237,239,.6)}
+.msg .tick{color:var(--wa-tick);margin-left:2px;font-size:11px}
+.msg b{font-weight:700}
+.msg .em{color:var(--wa-sub);font-size:12.5px;display:block;margin-top:3px}
+
+/* template banner (utility message outside 24h window) */
+.tpl{align-self:flex-start;max-width:82%;background:var(--wa-in);border-radius:9px;border-top-left-radius:2px;overflow:hidden;animation:pop .26s}
+.tpl .hd{background:linear-gradient(120deg,#0A1030,#16255A);padding:13px 12px;display:flex;gap:10px;align-items:center;
+  border-bottom:1px solid rgba(255,216,74,.18)}
+.tpl .hd svg{width:30px;height:auto;flex:none;overflow:visible}
+.tpl .hd span{font-size:11.5px;color:var(--glow);font-weight:700;letter-spacing:.04em}
+.tpl .bd{padding:9px 11px 7px;font-size:14.1px;color:var(--wa-txt);line-height:1.45;white-space:pre-wrap}
+
+/* reply buttons + list rows (real WhatsApp interactive components) */
+.btns{align-self:flex-start;max-width:82%;width:82%;display:grid;gap:2px;margin-top:2px;margin-bottom:6px}
+.btns button{background:var(--wa-in);color:var(--wa-tick);border:0;border-radius:8px;padding:11px 10px;
+  font-size:13.9px;font-weight:600;transition:background .2s}
+.btns button:hover{background:#2A3942}
+.btns button:disabled{opacity:.45;cursor:default}
+.listbtn{display:flex;align-items:center;justify-content:center;gap:7px}
+
+.sysline{align-self:center;background:rgba(32,44,51,.85);color:#FFD98A;font-size:11.6px;font-weight:600;
+  padding:6px 13px;border-radius:8px;margin:8px 0;text-align:center;max-width:88%;animation:pop .26s}
+
+.typing{align-self:flex-start;background:var(--wa-in);border-radius:9px;border-top-left-radius:2px;padding:12px 14px;display:flex;gap:4px}
+.typing i{width:6px;height:6px;border-radius:50%;background:var(--wa-sub);animation:bl 1.3s infinite}
+.typing i:nth-child(2){animation-delay:.18s}.typing i:nth-child(3){animation-delay:.36s}
+@keyframes bl{0%,60%,100%{opacity:.3;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}
+
+.composer{background:var(--wa-head);padding:9px 12px;display:flex;align-items:center;gap:10px}
+.composer .fake{flex:1;background:#2A3942;border-radius:22px;padding:10px 15px;color:var(--wa-sub);font-size:13.5px}
+.composer .send{width:38px;height:38px;border-radius:50%;background:var(--wa-green);display:grid;place-items:center;color:#0B141A;font-size:15px;flex:none}
+
+.phone-foot{display:flex;gap:10px;justify-content:center;margin-top:18px;flex-wrap:wrap}
+.mini{background:rgba(10,16,48,.7);border:1px solid rgba(159,170,209,.2);color:var(--muted);
+  font-size:12.8px;font-weight:600;padding:9px 16px;border-radius:999px;transition:.25s}
+.mini:hover{border-color:var(--lime);color:var(--lime)}
+.hint{text-align:center;margin-top:13px;font-size:12.4px;color:var(--faint)}
+
+/* ---------- lower blocks ---------- */
+section{margin-top:clamp(64px,8vw,104px)}
+.shead h2{font-size:clamp(27px,3.4vw,42px)}
+.shead p{margin-top:15px;color:var(--muted);font-size:16.5px;max-width:60ch}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:34px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:34px}
+.card{padding:26px 24px;border-radius:18px;border:1px solid rgba(159,170,209,.15);
+  background:linear-gradient(170deg,rgba(13,22,56,.75),rgba(7,11,31,.45));transition:border-color .3s,transform .3s}
+.card:hover{border-color:rgba(255,230,109,.32);transform:translateY(-3px)}
+.card h3{font-family:var(--sans);font-weight:700;font-size:16.8px;letter-spacing:-.01em}
+.card p{margin-top:11px;font-size:14.4px;color:var(--muted)}
+.card .kv{margin-top:15px;font-size:12.4px;font-weight:700;color:var(--lime);letter-spacing:.02em}
+.stop{border-color:rgba(245,51,91,.32)}
+.stop .kv{color:#FF8DA6}
+.stop:hover{border-color:rgba(245,51,91,.6)}
+
+table{width:100%;border-collapse:collapse;margin-top:30px;font-size:14.3px}
+th,td{text-align:left;padding:15px 16px;border-bottom:1px solid rgba(159,170,209,.14);vertical-align:top}
+th{font-size:11.4px;letter-spacing:.09em;text-transform:uppercase;color:var(--faint);font-weight:700}
+td b{color:#fff}
+td:first-child{width:32%}
+td .tpltag{display:inline-block;font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;margin-top:7px;
+  background:rgba(255,230,109,.1);border:1px solid rgba(255,230,109,.3);color:var(--glow)}
+
+footer{margin-top:90px;padding-top:30px;border-top:1px solid rgba(159,170,209,.14);color:var(--faint);font-size:13.4px;line-height:1.7}
+
+@media (max-width:1040px){
+  .split{grid-template-columns:1fr;gap:38px}
+  .stick{position:static;order:-1}
+  .grid3,.grid4{grid-template-columns:1fr 1fr}
+}
+@media (max-width:640px){
+  .page{padding:0 18px 70px}
+  .grid3,.grid4{grid-template-columns:1fr}
+  td:first-child{width:auto}
+  table,thead,tbody,th,td,tr{display:block}
+  thead{display:none}
+  td{border:0;padding:4px 0}
+  tr{display:block;padding:18px 0;border-bottom:1px solid rgba(159,170,209,.14)}
+  .screen{height:600px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.001ms!important;transition-duration:.001ms!important}
+  .thread{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<!-- Studi symbol -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <radialGradient id="lanternG" cx="50%" cy="38%" r="62%"><stop offset="0%" stop-color="#FFFDF0"/><stop offset="42%" stop-color="#FFE66D"/><stop offset="100%" stop-color="#FFC81E"/></radialGradient>
+  <radialGradient id="auraG" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#FFD84A" stop-opacity=".55"/><stop offset="55%" stop-color="#FFD84A" stop-opacity=".14"/><stop offset="100%" stop-color="#FFD84A" stop-opacity="0"/></radialGradient>
+  <linearGradient id="bodyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#5C5747"/><stop offset="100%" stop-color="#403C30"/></linearGradient>
+  <filter id="soft" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="9"/></filter>
+  <symbol id="studi" viewBox="0 0 200 300">
+    <ellipse cx="100" cy="238" rx="72" ry="70" fill="url(#auraG)"/>
+    <g stroke="#3A3629" stroke-width="7" stroke-linecap="round" fill="none"><path d="M78 60 C70 40 58 30 50 24"/><path d="M122 60 C130 40 142 30 150 24"/></g>
+    <g><circle cx="47" cy="20" r="19" fill="#FFD84A" filter="url(#soft)" opacity=".85"/><circle cx="153" cy="20" r="19" fill="#FFD84A" filter="url(#soft)" opacity=".85"/>
+       <circle cx="47" cy="20" r="12" fill="#FFE66D" stroke="#E0A800" stroke-width="2"/><circle cx="153" cy="20" r="12" fill="#FFE66D" stroke="#E0A800" stroke-width="2"/></g>
+    <g fill="#F3EFDD" stroke="#6E6851" stroke-width="2.6" opacity=".95">
+      <ellipse cx="46" cy="116" rx="47" ry="16" transform="rotate(-23 46 116)"/><ellipse cx="58" cy="154" rx="36" ry="13" transform="rotate(17 58 154)"/></g>
+    <g fill="#F3EFDD" stroke="#6E6851" stroke-width="2.6" opacity=".95">
+      <ellipse cx="154" cy="116" rx="47" ry="16" transform="rotate(23 154 116)"/><ellipse cx="142" cy="154" rx="36" ry="13" transform="rotate(-17 142 154)"/></g>
+    <g stroke="#8A8265" stroke-width="4.5" fill="none" stroke-linecap="round">
+      <path d="M74 168 C60 176 54 190 56 202"/><path d="M76 182 C62 192 58 204 60 214"/>
+      <path d="M126 168 C140 176 146 190 144 202"/><path d="M124 182 C138 192 142 204 140 214"/></g>
+    <path d="M72 150 q28 -12 56 0 l-4 44 q-24 10 -48 0 z" fill="url(#bodyG)" stroke="#2E2B21" stroke-width="3.4"/>
+    <path class="lantern" d="M100 188 C117 206 125 226 125 250 A25 25 0 0 1 75 250 C75 226 83 206 100 188 Z" fill="url(#lanternG)" stroke="#E9A900" stroke-width="2.6"/>
+    <ellipse cx="100" cy="106" rx="62" ry="54" fill="url(#bodyG)" stroke="#2E2B21" stroke-width="3.6"/>
+    <g><ellipse cx="77" cy="108" rx="14.5" ry="18" fill="#171512"/><ellipse cx="123" cy="108" rx="14.5" ry="18" fill="#171512"/>
+       <circle cx="80" cy="116" r="5" fill="#FFE66D"/><circle cx="126" cy="116" r="5" fill="#FFE66D"/>
+       <circle cx="72" cy="100" r="3.4" fill="#fff" opacity=".85"/><circle cx="118" cy="100" r="3.4" fill="#fff" opacity=".85"/></g>
+    <path d="M88 130 q12 12 24 0" stroke="#22201A" stroke-width="4" fill="none" stroke-linecap="round"/>
+  </symbol>
+</defs></svg>
+
+<div class="page">
+
+<header class="top">
+  <div style="flex:1;min-width:290px">
+    <div class="logo">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><g fill="#F5335B">
+        <rect x="13.6" y="1" width="4.8" height="30" rx="2.4"/>
+        <rect x="13.6" y="1" width="4.8" height="30" rx="2.4" transform="rotate(60 16 16)"/>
+        <rect x="13.6" y="1" width="4.8" height="30" rx="2.4" transform="rotate(120 16 16)"/>
+      </g></svg><span>StudyIn</span>
+    </div>
+    <h1>Studi on WhatsApp</h1>
+    <p class="sub">The guiding light, in the app students already have open. Four behaviours, one voice, and a counsellor never more than one message away.</p>
+    <div style="margin-top:22px"><span class="tagline"><i></i>WhatsApp Business Platform · Official Business Account</span></div>
+  </div>
+</header>
+
+<div class="split">
+
+  <!-- ============ LEFT: FEATURES ============ -->
+  <div class="tabs" id="tabs">
+
+    <button class="tab on" data-flow="ask">
+      <div class="row"><span class="n">1</span><h3>Welcomes and asks — never broadcasts</h3></div>
+      <p>The first message is a question, not a pitch. Studi introduces himself, states what he can do, and hands control straight back to the student.</p>
+      <div class="play">▶ Play this flow</div>
+      <div class="detail">
+        <h4>Design decisions</h4>
+        <ul>
+          <li>Opens with a <b>list message</b> (up to 10 rows) rather than three buttons, so the student sees the full scope of help before choosing.</li>
+          <li>Studi names his limits in the first 20 words. Setting expectations early is what stops the "useless bot" reaction.</li>
+          <li>No marketing copy, no offers, no links until the student has stated an intent.</li>
+          <li>Free-text is always accepted. The list is a shortcut, never a cage — students who type get answered.</li>
+        </ul>
+        <div class="chipset"><span>List message</span><span>Session opener</span><span>Intent capture</span></div>
+      </div>
+    </button>
+
+    <button class="tab" data-flow="answer">
+      <div class="row"><span class="n">2</span><h3>Answers country, course, eligibility and FAQs</h3></div>
+      <p>Grounded answers on entry requirements, intakes, costs and work rights — pulled from the same content that powers the site's study guides.</p>
+      <div class="play">▶ Play this flow</div>
+      <div class="detail">
+        <h4>Design decisions</h4>
+        <ul>
+          <li>Answers are <b>retrieved from StudyIn's own destination and course data</b>, not generated freely. If a fact isn't in the source, Studi says so and offers a counsellor.</li>
+          <li>Every answer ends with a next action, so the thread always moves forward instead of dead-ending.</li>
+          <li>Numbers that change — fees, exact deposits, scholarship values — are never quoted as final. They're framed as "typical" with a counsellor check offered.</li>
+          <li>Long answers are split into two bubbles. One wall of text on a phone doesn't get read.</li>
+        </ul>
+        <div class="chipset"><span>Grounded retrieval</span><span>Reply buttons</span><span>No invented figures</span></div>
+      </div>
+    </button>
+
+    <button class="tab" data-flow="remind">
+      <div class="row"><span class="n">3</span><h3>Personalised deadline and document reminders</h3></div>
+      <p>Nudges tied to that student's own application — the deposit date, the missing bank statement, the CAS deadline — not a mass campaign.</p>
+      <div class="play">▶ Play this flow</div>
+      <div class="detail">
+        <h4>Design decisions</h4>
+        <ul>
+          <li>Outside the 24-hour service window, WhatsApp only permits <b>pre-approved utility templates</b>. Reminders are a fixed template library with merge fields, not free text.</li>
+          <li>Requires explicit opt-in, captured at counselling booking. Opt-out via <b>STOP</b> is honoured immediately and permanently.</li>
+          <li>Hard caps: maximum three per week, none between 21:00 and 08:00 local time, and silence once the task is complete.</li>
+          <li>Every reminder carries the action inside it — upload, confirm, or reschedule — so it never costs the student a second round trip.</li>
+        </ul>
+        <div class="chipset"><span>Utility template</span><span>Opt-in required</span><span>Frequency capped</span><span>24h window</span></div>
+      </div>
+    </button>
+
+    <button class="tab" data-flow="handoff">
+      <div class="row"><span class="n">4</span><h3>Hands off the second it needs a human</h3></div>
+      <p>Refusals, money, appeals, distress, or anything Studi is less than sure about goes to a named counsellor — with the whole thread already attached.</p>
+      <div class="play">▶ Play this flow</div>
+      <div class="detail">
+        <h4>Design decisions</h4>
+        <ul>
+          <li>Escalation is <b>instant and unconditional</b> on trigger topics. Studi does not attempt one more answer first.</li>
+          <li>The counsellor arrives <b>named, with a photo and a branch</b>. An anonymous "an agent will assist you" undoes the trust the whole thread just built.</li>
+          <li>The transcript transfers with the handoff. Nobody is asked to repeat themselves — the single most common complaint about bot-to-human handovers.</li>
+          <li>Outside office hours Studi states the real callback time rather than leaving the student waiting on a thread that has gone quiet.</li>
+          <li>Two consecutive low-confidence answers force a handoff automatically, even without a trigger word.</li>
+        </ul>
+        <div class="chipset"><span>Named counsellor</span><span>Transcript transfer</span><span>Confidence threshold</span></div>
+      </div>
+    </button>
+
+  </div>
+
+  <!-- ============ RIGHT: PHONE ============ -->
+  <div class="stick">
+    <div class="phone">
+      <div class="screen">
+        <div class="statusbar"><span>9:41</span><span>▮▮▮ ⌁ 84%</span></div>
+        <div class="wahead">
+          <span class="back">‹</span>
+          <div class="avatar"><svg viewBox="0 0 200 300"><use href="#studi"/></svg></div>
+          <div class="who">
+            <b>StudyIn<svg class="verified" viewBox="0 0 24 24" fill="#53BDEB"><path d="M12 2l2.4 1.8 3-.3 1 2.8 2.6 1.5-.9 2.9.9 2.9-2.6 1.5-1 2.8-3-.3L12 22l-2.4-1.8-3 .3-1-2.8L3 16.2l.9-2.9L3 10.4l2.6-1.5 1-2.8 3 .3z"/><path d="M10.6 15.4l-2.9-2.9 1.1-1.1 1.8 1.8 4.2-4.2 1.1 1.1z" fill="#0B141A"/></svg></b>
+            <span id="presence">Studi · typically replies instantly</span>
+          </div>
+          <div class="icons"><span>⌕</span><span>⋮</span></div>
+        </div>
+        <div class="thread" id="thread" role="log" aria-live="polite" aria-label="WhatsApp conversation demo"></div>
+        <div class="composer">
+          <div class="fake" id="composer">Message</div>
+          <div class="send">➤</div>
+        </div>
+      </div>
+    </div>
+    <div class="phone-foot">
+      <button class="mini" id="replay">↻ Replay</button>
+      <button class="mini" id="next">Next flow →</button>
+    </div>
+    <p class="hint">Tap the green reply buttons in the thread to move the conversation forward.</p>
+  </div>
+</div>
+
+<!-- ============ ESCALATION RULES ============ -->
+<section>
+  <div class="shead">
+    <h2>What Studi never handles alone</h2>
+    <p>The value of an assistant like this is decided by how fast it gives up. These triggers bypass every other rule and route straight to a counsellor.</p>
+  </div>
+  <div class="grid4">
+    <div class="card stop"><h3>Visa refusal or appeal</h3><p>Legally consequential and emotionally loaded. Wrong information here can cost a student an intake.</p><div class="kv">IMMEDIATE HANDOFF</div></div>
+    <div class="card stop"><h3>Money and payments</h3><p>Deposits, refunds, agent fees, loan letters. Studi never quotes a figure or takes a payment instruction.</p><div class="kv">IMMEDIATE HANDOFF</div></div>
+    <div class="card stop"><h3>Distress or pressure</h3><p>Family pressure, anxiety, anything sounding like a crisis. A human replies, not a script.</p><div class="kv">IMMEDIATE HANDOFF</div></div>
+    <div class="card stop"><h3>Complaints and disputes</h3><p>Anything about StudyIn's own service goes to a manager, never to the assistant that may have caused it.</p><div class="kv">IMMEDIATE HANDOFF</div></div>
+  </div>
+</section>
+
+<!-- ============ TEMPLATES ============ -->
+<section>
+  <div class="shead">
+    <h2>The reminder template library</h2>
+    <p>Because these send outside the 24-hour window, each one is submitted to Meta for approval once and then populated with that student's own data. Merge fields in braces.</p>
+  </div>
+  <table>
+    <thead><tr><th>Trigger</th><th>Message</th><th>Timing</th></tr></thead>
+    <tbody>
+      <tr><td><b>Missing document</b><span class="tpltag">UTILITY</span></td>
+          <td>Your {university} application is ready except one thing — the {document}. Send it here and I'll pass it to {counsellor}.</td><td>48h after the gap is logged, then once more at 5 days</td></tr>
+      <tr><td><b>Deposit deadline</b><span class="tpltag">UTILITY</span></td>
+          <td>Your place at {university} is held until {date}. {counsellor} can walk you through the deposit if anything is unclear.</td><td>7 days and 2 days before</td></tr>
+      <tr><td><b>Visa appointment</b><span class="tpltag">UTILITY</span></td>
+          <td>Your appointment at {centre} is on {date}. Here's the document checklist — reply CHECK and I'll go through it with you.</td><td>5 days and 1 day before</td></tr>
+      <tr><td><b>English test result</b><span class="tpltag">UTILITY</span></td>
+          <td>Results for {test} are usually out by {date}. Send yours here and I'll tell you which offers it unlocks.</td><td>On expected result date</td></tr>
+      <tr><td><b>Event nearby</b><span class="tpltag">MARKETING</span></td>
+          <td>{event} is on {date} in {city}, with {n} universities attending. Want me to save you a place?</td><td>Opt-in only. Maximum one per month</td></tr>
+      <tr><td><b>Pre-departure</b><span class="tpltag">UTILITY</span></td>
+          <td>You fly to {city} in two weeks. Here's what to sort before you go — reply LIST and I'll send it step by step.</td><td>14 days before departure</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ============ ENTRY POINTS ============ -->
+<section>
+  <div class="shead">
+    <h2>How students get into the thread</h2>
+    <p>The channel only works if it's continuous with everything else. Studi on the website and Studi on WhatsApp are the same character, mid-conversation.</p>
+  </div>
+  <div class="grid3">
+    <div class="card"><h3>From the website</h3><p>The Studi dock offers "Continue on WhatsApp" once a student has picked a destination or run a course search. The context travels with them — Studi opens already knowing what they were looking at.</p><div class="kv">HIGHEST INTENT</div></div>
+    <div class="card"><h3>Click-to-WhatsApp ads</h3><p>Meta and Instagram ads that open the thread directly instead of a landing page. The opening message names the ad's destination, so there's no cold start.</p><div class="kv">PAID ACQUISITION</div></div>
+    <div class="card"><h3>QR at fairs and branches</h3><p>A printed Studi QR on every counsellor's desk and fair stand. Scanning it attaches the branch, so follow-up comes from someone the student actually met.</p><div class="kv">OFFLINE TO ONLINE</div></div>
+  </div>
+</section>
+
+<!-- ============ MEASUREMENT ============ -->
+<section>
+  <div class="shead">
+    <h2>How you'd know it's working</h2>
+    <p>Deflection rate is the wrong headline metric — it rewards a bot for refusing to escalate. These are the numbers that track whether students are actually better off.</p>
+  </div>
+  <div class="grid4">
+    <div class="card"><h3>Time to first useful answer</h3><p>Not time to first reply. An instant "how can I help?" isn't an answer.</p><div class="kv">TARGET: UNDER 30s</div></div>
+    <div class="card"><h3>Handoff acceptance</h3><p>How often a student stays engaged after a counsellor joins. Measures handoff quality, not volume.</p><div class="kv">TARGET: 80%+</div></div>
+    <div class="card"><h3>Document completion</h3><p>Share of reminded students who submit within 72 hours, against an unreminded control group.</p><div class="kv">THE REAL PAYOFF</div></div>
+    <div class="card"><h3>Opt-out rate</h3><p>The honest early-warning signal. Rising opt-outs mean the reminders became broadcasts.</p><div class="kv">CEILING: 2%</div></div>
+  </div>
+</section>
+
+<footer>
+  Conversation UX concept for StudyIn · Studi on the WhatsApp Business Platform.<br>
+  WhatsApp's own interface is fixed by Meta and cannot be restyled — Studi's presence here is carried by the profile avatar, display name, writing voice and image headers. Everything else is copy and interaction design. Demo thread is illustrative; figures shown are placeholders pending StudyIn's live data.
+</footer>
+
+</div>
+
+<script>
+(function(){
+'use strict';
+const RM=window.matchMedia('(prefers-reduced-motion: reduce)');
+const thread=document.getElementById('thread');
+const composer=document.getElementById('composer');
+const presence=document.getElementById('presence');
+const T='9:41';
+
+/* ---- flows: who = studi | user | sys | agent | tpl ---- */
+const FLOWS={
+ask:[
+ {who:'sys',t:'Today'},
+ {who:'user',t:'Hi'},
+ {who:'studi',t:"Hi! I'm Studi \u{1F31F} I help StudyIn students figure out where to study and what to do next.",wait:800},
+ {who:'studi',t:"I can answer questions about countries, courses and entry requirements, and remind you about your deadlines. Anything that needs a real counsellor, I'll pass straight to one.",wait:1400},
+ {who:'studi',t:"What would you like to start with?",wait:1000,list:['Choosing a country','Finding a course','Am I eligible?','Costs and scholarships','Talk to a counsellor']},
+ {who:'user',t:'Am I eligible?'},
+ {who:'studi',t:"Good place to start. Tell me three things and I'll check:\n\n1. Your last qualification and result\n2. Your IELTS or PTE score, if you have one\n3. Where you're hoping to go",wait:1100},
+ {who:'sys',t:'Studi asked, then stopped talking. The student sets the direction.'}
+],
+answer:[
+ {who:'sys',t:'Today'},
+ {who:'user',t:'HSC GPA 4.2, IELTS 6.0. Can I get into Canada?'},
+ {who:'studi',t:"Yes — that combination works for a good number of Canadian colleges and some universities.",wait:900},
+ {who:'studi',t:"With 6.0 overall and no band under 5.5, you'd be looking mainly at diploma and advanced-diploma programmes, plus a few bachelor pathways. Most degree entries want 6.5.",wait:1600},
+ {who:'studi',t:"Two things worth knowing:\n\n\u2022 A 6.5 would widen your options a lot — often worth one retake\n\u2022 Canada's post-study work permit can run up to 3 years",wait:1500,btns:['What could I study?','How much does it cost?','Talk to a counsellor']},
+ {who:'user',t:'How much does it cost?'},
+ {who:'studi',t:"Typical range for a college programme is CAD 15,000\u201320,000 a year in tuition, plus around CAD 12,000 living costs.",wait:1000},
+ {who:'studi',t:"I've kept that general on purpose \u2014 the real number depends on the province and programme, and I won't guess at your file. A counsellor can price your actual shortlist. \u{1F4A1}",wait:1500,btns:['Get my shortlist priced','Keep exploring']},
+ {who:'sys',t:'Studi refused to invent a precise figure. That restraint is the feature.'}
+],
+remind:[
+ {who:'sys',t:'Last message 6 days ago \u00b7 outside the 24-hour service window'},
+ {who:'tpl',label:'UTILITY TEMPLATE \u00b7 APPROVED',t:"Your University of Strathclyde application is ready except one thing \u2014 the bank statement.\n\nSend it here and I'll pass it straight to Nusrat at StudyIn Dhaka.",btns:['Upload now','Remind me tomorrow','What exactly is needed?']},
+ {who:'user',t:'What exactly is needed?'},
+ {who:'sys',t:'Student replied \u2014 24-hour window is now open, free-form allowed'},
+ {who:'studi',t:"A statement showing the funds have been held for at least 28 days, in your name or your sponsor's, with the bank's stamp on every page.",wait:1200},
+ {who:'studi',t:"Take a photo of each page and send it here. I'll check it's readable before Nusrat sees it \u2014 saves you a round trip.",wait:1300,btns:['Upload now','STOP reminders']},
+ {who:'user',t:'Upload now'},
+ {who:'studi',t:"Got it \u2014 all four pages are clear and the dates look right. \u{2705} Passed to Nusrat, she'll confirm by tomorrow evening.",wait:1400},
+ {who:'sys',t:'Reminder closed the loop. Studi now goes quiet on this task.'}
+],
+handoff:[
+ {who:'sys',t:'Today'},
+ {who:'user',t:'My UK visa got refused yesterday. I don\u2019t know what to do'},
+ {who:'studi',t:"I'm sorry \u2014 that's a hard thing to open your email to.",wait:900},
+ {who:'studi',t:"This one I'm not going to try to answer myself. Refusals turn on the exact wording of your refusal notice, and getting it wrong could cost you the January intake. I'm getting you a counsellor now.",wait:1600},
+ {who:'sys',t:'Escalated \u00b7 trigger: visa refusal \u00b7 transcript attached'},
+ {who:'studi',t:"Rafiul handles UK refusals and appeals from our Dhaka branch. He can see everything we've discussed, so you won't have to explain it again.",wait:1300},
+ {who:'agent',t:"Hi, this is Rafiul from StudyIn Dhaka. I've read your messages \u2014 no need to repeat anything.\n\nCan you send a photo of the refusal notice? The paragraph numbers on it tell me whether this is a quick fix or an appeal.",wait:1800},
+ {who:'sys',t:'Studi steps back. He does not rejoin unless Rafiul hands the thread back.'}
+]
+};
+
+let seq=0, order=['ask','answer','remind','handoff'], current='ask';
+
+function el(cls,html){const d=document.createElement('div');d.className=cls;if(html!==undefined)d.innerHTML=html;return d;}
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function scroll(){thread.scrollTop=thread.scrollHeight;}
+function stamp(out){return '<span class="time">'+T+(out?' <span class="tick">\u2713\u2713</span>':'')+'</span>';}
+
+function run(flow){
+  const my=++seq;
+  current=flow;
+  thread.innerHTML='';
+  composer.textContent='Message';
+  presence.textContent='Studi \u00b7 typically replies instantly';
+  document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('on',t.dataset.flow===flow));
+  step(FLOWS[flow],0,my);
+}
+
+function step(steps,i,my){
+  if(my!==seq) return;
+  if(i>=steps.length) return;
+  const s=steps[i];
+  const go=()=>step(steps,i+1,my);
+
+  if(s.who==='sys'){ thread.appendChild(el('sysline',esc(s.t))); scroll(); setTimeout(go,650); return; }
+
+  if(s.who==='user'){
+    const m=el('msg out',esc(s.t)+stamp(true));
+    thread.appendChild(m); scroll(); setTimeout(go,700); return;
+  }
+
+  if(s.who==='tpl'){
+    const w=el('tpl');
+    w.innerHTML='<div class="hd"><svg viewBox="0 0 200 300"><use href="#studi"/></svg><span>'+s.label+'</span></div>'+
+                '<div class="bd">'+esc(s.t)+stamp(false)+'</div>';
+    thread.appendChild(w); scroll();
+    if(s.btns) buttons(s.btns,steps,i,my); else setTimeout(go,900);
+    return;
+  }
+
+  // studi or agent — typing indicator first
+  const wait=RM.matches?200:(s.wait||1000);
+  presence.textContent = s.who==='agent' ? 'Rafiul \u00b7 online' : 'Studi \u00b7 typing\u2026';
+  const dots=el('typing','<i></i><i></i><i></i>');
+  thread.appendChild(dots); scroll();
+  setTimeout(()=>{
+    if(my!==seq) return;
+    dots.remove();
+    presence.textContent = s.who==='agent' ? 'Rafiul \u00b7 online' : 'Studi \u00b7 online';
+    const m=el('msg in');
+    let body=esc(s.t);
+    if(s.who==='agent') body='<b style="color:#B8FF6A">Rafiul \u00b7 StudyIn Dhaka</b><br>'+body;
+    m.innerHTML=body+stamp(false);
+    thread.appendChild(m); scroll();
+    if(s.btns) buttons(s.btns,steps,i,my);
+    else if(s.list) buttons(s.list,steps,i,my,true);
+    else setTimeout(()=>step(steps,i+1,my),Math.min(wait,900));
+  },wait);
+}
+
+function buttons(labels,steps,i,my,isList){
+  const box=el('btns');
+  if(isList){
+    const head=document.createElement('div');
+    head.style.cssText='font-size:11px;color:#8696A0;font-weight:700;letter-spacing:.06em;padding:6px 2px 2px';
+    head.textContent='HOW CAN I HELP?';
+    box.appendChild(head);
+  }
+  labels.forEach(l=>{
+    const b=document.createElement('button');
+    b.className=isList?'listbtn':'';
+    b.textContent=l;
+    b.addEventListener('click',()=>{
+      if(my!==seq) return;
+      [...box.querySelectorAll('button')].forEach(x=>x.disabled=true);
+      box.remove();
+      // if the scripted next step is the user's reply, let it play; otherwise echo the tap
+      const nxt=steps[i+1];
+      if(nxt && nxt.who==='user'){ step(steps,i+1,my); }
+      else{
+        const m=el('msg out',esc(l)+stamp(true));
+        thread.appendChild(m); scroll();
+        setTimeout(()=>step(steps,i+1,my),700);
+      }
+    });
+    box.appendChild(b);
+  });
+  thread.appendChild(box); scroll();
+  composer.textContent='Tap an option, or type your own';
+}
+
+document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>run(t.dataset.flow)));
+document.getElementById('replay').addEventListener('click',()=>run(current));
+document.getElementById('next').addEventListener('click',()=>{
+  run(order[(order.indexOf(current)+1)%order.length]);
+  document.querySelector('.tab.on').scrollIntoView({behavior:RM.matches?'auto':'smooth',block:'center'});
+});
+run('ask');
+})();
+</script>
+</body>
+</html>

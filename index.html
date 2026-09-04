@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>StudyIn — Make your study abroad investment count</title>
+<meta name="description" content="Trusted by 1.3M+ students since 2006. Free expert guidance for overseas education in the UK, Australia, Canada, Ireland, New Zealand, Dubai and the USA.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   STUDYIN — MIDNIGHT / GUIDING LIGHT
+   Colour meaning is fixed and never mixed:
+     amber  = "look here"  (guidance / fireflies / Studi)
+     lime   = "you are here" (state, selection, active)
+     pink   = "act"        (conversion only)
+   ============================================================ */
+:root{
+  --n0:#070B1F; --n1:#0A1030; --n2:#0D1638; --n3:#101C45; --n4:#16255A;
+  --lime:#B8FF6A; --lime-2:#C4FF8A;
+  --glow:#FFE66D; --glow-2:#FFD84A; --glow-3:#FFF1A8;
+  --cta:#F5335B; --cta-hover:#FF4E71;
+  --text:#EDF1FF; --muted:#9FAAD1; --faint:#6B77A3;
+  --line:rgba(184,255,106,.14);
+  --serif:'Fraunces',Georgia,serif;
+  --sans:'Hanken Grotesk',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --wrap:1240px;
+  --r:20px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; font-family:var(--sans); color:var(--text);
+  background:var(--n0);
+  -webkit-font-smoothing:antialiased; overflow-x:hidden;
+}
+/* fixed atmospheric base — every section sits on this as translucent glass */
+body::before{
+  content:''; position:fixed; inset:0; z-index:0; pointer-events:none;
+  background:
+    radial-gradient(900px 600px at 78% 6%, rgba(22,37,90,.85), transparent 62%),
+    radial-gradient(700px 500px at 8% 34%, rgba(13,22,56,.9), transparent 60%),
+    radial-gradient(1000px 700px at 50% 108%, rgba(16,28,69,.7), transparent 62%),
+    linear-gradient(180deg,#070B1F 0%,#0A1030 30%,#0D1638 62%,#070B1F 100%);
+}
+#fireflies{position:fixed; inset:0; z-index:1; pointer-events:none}
+.page{position:relative; z-index:2}
+
+a{color:inherit; text-decoration:none}
+img{max-width:100%; display:block}
+button{font:inherit; color:inherit; cursor:pointer}
+:focus-visible{outline:2px solid var(--glow); outline-offset:3px; border-radius:6px}
+.skip{position:absolute; left:-9999px; top:0; background:var(--lime); color:#06210B; padding:12px 18px; font-weight:700; border-radius:0 0 10px 0; z-index:200}
+.skip:focus{left:0}
+.wrap{max-width:var(--wrap); margin:0 auto; padding:0 28px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+h1,h2,h3{font-family:var(--serif); font-weight:600; line-height:1.06; letter-spacing:-.015em; margin:0}
+p{margin:0; line-height:1.62}
+
+/* ---------- SECTION RHYTHM (never two identical tones in a row) ---------- */
+section{position:relative; padding:clamp(76px,9vw,132px) 0}
+.tone-a{background:linear-gradient(180deg,rgba(10,16,48,.55),rgba(13,22,56,.72))}
+.tone-b{background:linear-gradient(180deg,rgba(22,37,90,.5),rgba(13,22,56,.55))}
+.tone-c{background:linear-gradient(180deg,rgba(7,11,31,.86),rgba(7,11,31,.6))}
+.tone-d{background:linear-gradient(180deg,rgba(16,28,69,.62),rgba(10,16,48,.8))}
+.edge{position:absolute; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,rgba(184,255,106,.22),rgba(255,230,109,.18),transparent)}
+.edge-t{top:0}
+
+/* ---------- LOGO ---------- */
+.logo{display:flex; align-items:center; gap:10px}
+.logo svg{width:26px;height:26px;flex:none}
+.logo span{font-family:var(--sans); font-weight:800; font-size:22px; letter-spacing:-.02em; color:#fff}
+
+/* ---------- NAV ---------- */
+.nav{position:fixed; top:0; left:0; right:0; z-index:120; transition:background .35s, backdrop-filter .35s, border-color .35s, padding .35s;
+  border-bottom:1px solid transparent; padding:18px 0}
+.nav.solid{background:rgba(7,11,31,.82); backdrop-filter:blur(16px) saturate(140%); border-bottom-color:rgba(184,255,106,.16); padding:11px 0}
+.nav-in{max-width:var(--wrap); margin:0 auto; padding:0 28px; display:flex; align-items:center; gap:28px}
+.nav-links{display:flex; gap:4px; margin-left:auto; align-items:center}
+.nav-links > a{position:relative; padding:9px 14px; font-size:14.5px; font-weight:500; color:#C9D2F0; border-radius:999px; transition:color .2s, background .2s}
+.nav-links > a::after{content:''; position:absolute; left:14px; right:14px; bottom:4px; height:1px; background:var(--lime); transform:scaleX(0); transform-origin:left; transition:transform .3s ease}
+.nav-links > a:hover{color:#fff}
+.nav-links > a:hover::after{transform:scaleX(1)}
+.nav-cta{background:var(--cta); color:#fff; font-weight:700; font-size:14.5px; padding:11px 20px; border-radius:999px; border:0; margin-left:10px; transition:background .2s, transform .2s, box-shadow .3s; white-space:nowrap}
+.nav-cta:hover{background:var(--cta-hover); transform:translateY(-1px); box-shadow:0 10px 28px -10px rgba(245,51,91,.8)}
+.burger{display:none; margin-left:auto; background:none; border:1px solid rgba(184,255,106,.28); border-radius:12px; padding:9px 12px}
+.burger span{display:block;width:18px;height:2px;background:var(--lime);margin:3.5px 0;border-radius:2px}
+
+/* ---------- HERO ---------- */
+.hero{padding:clamp(140px,17vw,210px) 0 clamp(70px,8vw,110px); overflow:hidden}
+.hero-grid{display:grid; grid-template-columns:1.08fr .92fr; gap:clamp(30px,5vw,72px); align-items:center}
+.eyebrow{display:inline-flex; align-items:center; gap:9px; font-size:13px; font-weight:600; letter-spacing:.01em; color:var(--glow-3);
+  background:rgba(255,230,109,.07); border:1px solid rgba(255,230,109,.22); padding:7px 14px 7px 10px; border-radius:999px; margin-bottom:26px}
+.eyebrow i{width:7px;height:7px;border-radius:50%;background:var(--glow);box-shadow:0 0 10px 2px rgba(255,216,74,.85); animation:pulse 3.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:.5;transform:scale(.82)}50%{opacity:1;transform:scale(1.15)}}
+h1{font-size:clamp(44px,6.1vw,82px); line-height:1.02}
+h1 .lit{color:var(--lime); display:inline-block}
+.hero p.lede{margin-top:24px; font-size:clamp(16.5px,1.5vw,19.5px); color:var(--muted); max-width:31em}
+.hero-actions{display:flex; flex-wrap:wrap; gap:14px; align-items:center; margin-top:38px}
+
+.btn{border:0; border-radius:999px; font-weight:700; display:inline-flex; align-items:center; gap:10px; transition:transform .22s, background .22s, box-shadow .3s, border-color .22s}
+.btn-primary{position:relative; background:var(--cta); color:#fff; padding:17px 30px; font-size:16.5px; box-shadow:0 14px 40px -16px rgba(245,51,91,.9)}
+.btn-primary:hover{background:var(--cta-hover); transform:translateY(-2px); box-shadow:0 20px 50px -16px rgba(245,51,91,1)}
+.btn-primary .arw{transition:transform .25s}
+.btn-primary:hover .arw{transform:translateX(4px)}
+.btn-ghost{background:transparent; color:var(--text); padding:16px 26px; font-size:16px; border:1px solid rgba(184,255,106,.3)}
+.btn-ghost:hover{border-color:var(--lime); background:rgba(184,255,106,.07)}
+.btn-lime{background:var(--lime); color:#062009; padding:15px 26px; font-size:15.5px}
+.btn-lime:hover{background:var(--lime-2); transform:translateY(-2px)}
+
+/* hero image: organic mask, embedded in the night */
+.hero-art{position:relative; aspect-ratio:1/1.02}
+.orb{position:absolute; inset:0; border-radius:58% 42% 50% 50%/48% 54% 46% 52%; overflow:hidden;
+  box-shadow:0 0 0 1px rgba(184,255,106,.16), 0 40px 120px -40px rgba(255,216,74,.35);
+  animation:morph 22s ease-in-out infinite}
+@keyframes morph{0%,100%{border-radius:58% 42% 50% 50%/48% 54% 46% 52%}50%{border-radius:46% 54% 58% 42%/56% 44% 56% 44%}}
+.orb img{width:100%;height:100%;object-fit:cover; filter:saturate(.82) contrast(1.06) brightness(.72)}
+.orb::after{content:''; position:absolute; inset:0;
+  background:radial-gradient(70% 60% at 40% 30%, transparent 20%, rgba(7,11,31,.35) 62%, rgba(7,11,31,.92) 100%),
+             linear-gradient(200deg, rgba(255,216,74,.14), transparent 45%)}
+.halo{position:absolute; inset:-14%; border-radius:50%; background:radial-gradient(circle, rgba(255,216,74,.16), transparent 62%); filter:blur(30px); z-index:-1}
+
+/* ---------- STUDI ---------- */
+.studi{position:absolute; width:var(--sz,120px); z-index:6; pointer-events:none; will-change:transform}
+.studi svg{width:100%;height:auto; overflow:visible; filter:drop-shadow(0 0 30px rgba(255,216,74,.5))}
+.float{animation:float 6.5s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-16px) rotate(2deg)}}
+/* --- Studi poses --- */
+.s-all,.s-wingL,.s-wingR,.s-pupil{transform-box:view-box}
+.s-all{transform-origin:100px 180px}
+.s-wingL{transform-origin:62px 118px; animation:st-flap 340ms ease-in-out infinite alternate}
+.s-wingR{transform-origin:138px 118px; animation:st-flap 340ms ease-in-out infinite alternate}
+@keyframes st-flap{from{transform:scaleX(1)}to{transform:scaleX(.88)}}
+.s-hot{animation:st-pulse 3.6s ease-in-out infinite}
+@keyframes st-pulse{0%,100%{opacity:.42}50%{opacity:.72}}
+.s-ask,.s-cheer{transition:opacity .5s}
+
+/* welcoming wave */
+.pose-wave .s-all{animation:st-wave 3.4s ease-in-out infinite}
+@keyframes st-wave{0%,100%{transform:rotate(-7deg)}50%{transform:rotate(7deg)}}
+.pose-wave .s-wingL,.pose-wave .s-wingR{animation-duration:240ms}
+
+/* pondering */
+.pose-ponder .s-all{animation:st-ponder 6.5s ease-in-out infinite}
+@keyframes st-ponder{0%,100%{transform:rotate(-10deg)}50%{transform:rotate(-3deg) translateY(-6px)}}
+.pose-ponder .s-ask{opacity:1}
+.pose-ponder .s-pupil{transform:translateY(-4px)}
+.pose-ponder .s-hot{animation-duration:6s; opacity:.3}
+.pose-ponder .s-wingL,.pose-ponder .s-wingR{animation-duration:520ms}
+
+/* guiding / leaning toward something */
+.pose-guide .s-all{animation:st-guide 4.4s ease-in-out infinite}
+@keyframes st-guide{0%,100%{transform:rotate(7deg)}50%{transform:rotate(12deg) translateX(7px)}}
+
+/* celebrating */
+.pose-cheer .s-all{animation:st-cheer 2s ease-in-out infinite}
+@keyframes st-cheer{0%,100%{transform:translateY(0) scale(1)}45%{transform:translateY(-17px) scale(1.05)}}
+.pose-cheer .s-cheer{opacity:1; animation:st-spark 2s ease-in-out infinite}
+@keyframes st-spark{0%,100%{opacity:.25;transform:scale(.7)}50%{opacity:1;transform:scale(1.15)}}
+.pose-cheer .s-cheer{transform-box:view-box; transform-origin:100px 60px}
+.pose-cheer .s-hot{opacity:.85}
+.pose-cheer .s-wingL,.pose-cheer .s-wingR{animation-duration:190ms}50%{opacity:1}}
+
+/* Studi speech */
+.say{position:absolute; z-index:7; background:rgba(10,16,48,.93); backdrop-filter:blur(12px);
+  border:1px solid rgba(255,230,109,.3); color:#F4F7FF; padding:12px 17px; border-radius:16px 16px 16px 4px;
+  font-size:14.5px; font-weight:500; line-height:1.45; max-width:250px; box-shadow:0 18px 46px -18px rgba(255,216,74,.5);
+  opacity:0; transform:translateY(8px) scale(.96); transition:opacity .5s, transform .5s; pointer-events:none}
+.say.on{opacity:1; transform:translateY(0) scale(1)}
+.say b{color:var(--glow-3); font-weight:700}
+
+.hero-studi{right:-5%; top:0%; --sz:212px}
+.hero-say{right:0; top:-4%; }
+
+/* ---------- TRUST CONSTELLATION ---------- */
+.trust{padding:0; margin-top:clamp(24px,4vw,54px)}
+.trust-rail{position:relative; display:grid; grid-template-columns:repeat(4,1fr); gap:0}
+.trust-rail::before{content:''; position:absolute; top:34px; left:8%; right:8%; height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,230,109,.4),rgba(184,255,106,.35),rgba(255,230,109,.4),transparent)}
+.point{position:relative; text-align:center; padding:0 12px}
+.dot{width:16px;height:16px;border-radius:50%;margin:26px auto 20px; background:var(--glow); position:relative;
+  box-shadow:0 0 0 5px rgba(255,216,74,.13), 0 0 22px 5px rgba(255,216,74,.5)}
+.dot::after{content:''; position:absolute; inset:-5px; border-radius:50%; border:1px solid rgba(255,230,109,.4); animation:ring 4s ease-out infinite}
+.point:nth-child(2) .dot::after{animation-delay:1s}
+.point:nth-child(3) .dot::after{animation-delay:2s}
+.point:nth-child(4) .dot::after{animation-delay:3s}
+@keyframes ring{0%{transform:scale(.7);opacity:.9}100%{transform:scale(2.4);opacity:0}}
+.point .num{font-family:var(--serif); font-size:clamp(28px,3.4vw,42px); font-weight:600; line-height:1; color:#fff}
+.point .lab{margin-top:9px; font-size:13.5px; color:var(--muted); letter-spacing:.005em}
+
+/* ---------- SECTION HEADING ---------- */
+.shead{max-width:29ch}
+.shead h2{font-size:clamp(31px,4.1vw,54px)}
+.shead p{margin-top:18px; color:var(--muted); font-size:17px; max-width:46ch}
+.shead-row{display:flex; align-items:flex-end; justify-content:space-between; gap:30px; flex-wrap:wrap; margin-bottom:clamp(34px,4.5vw,58px)}
+.textlink{font-weight:600; color:var(--lime); font-size:15.5px; display:inline-flex; gap:8px; align-items:center; border-bottom:1px solid rgba(184,255,106,.35); padding-bottom:3px; transition:gap .25s, border-color .25s}
+.textlink:hover{gap:13px; border-color:var(--lime)}
+
+/* ---------- COURSE FINDER ---------- */
+.finder{position:relative; background:linear-gradient(150deg, rgba(22,37,90,.92), rgba(10,16,48,.94));
+  border:1px solid rgba(184,255,106,.18); border-radius:28px; padding:clamp(28px,3.6vw,46px);
+  box-shadow:0 50px 120px -50px rgba(0,0,0,.9)}
+.finder::before{content:''; position:absolute; inset:0; border-radius:28px; pointer-events:none;
+  background:radial-gradient(60% 80% at 88% 0%, rgba(255,216,74,.13), transparent 60%)}
+.fields{display:grid; grid-template-columns:repeat(3,1fr) auto; gap:14px; align-items:end; margin-top:30px; position:relative}
+.field label{display:block; font-size:12.5px; font-weight:600; color:var(--faint); margin-bottom:9px; transition:color .3s}
+.field.lit label{color:var(--lime)}
+.field select{width:100%; appearance:none; background:rgba(7,11,31,.72); color:var(--text);
+  border:1px solid rgba(159,170,209,.22); border-radius:14px; padding:16px 42px 16px 17px; font-size:15.5px; font-weight:500;
+  transition:border-color .3s, box-shadow .3s, background .3s;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239FAAD1' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat; background-position:right 17px center}
+.field select:hover{border-color:rgba(184,255,106,.4)}
+.field.lit select{border-color:rgba(184,255,106,.6); box-shadow:0 0 0 1px rgba(184,255,106,.25), 0 0 26px -6px rgba(184,255,106,.4); background-color:rgba(184,255,106,.05)}
+.finder .btn-primary{padding:17px 28px; white-space:nowrap}
+.finder-foot{margin-top:22px; font-size:13.5px; color:var(--faint); display:flex; gap:8px; align-items:center}
+.finder-studi{left:-38px; bottom:-46px; --sz:134px}
+
+/* ---------- DESTINATIONS ---------- */
+.dest{display:grid; grid-template-columns:1.15fr .85fr; gap:clamp(26px,4vw,56px); align-items:stretch}
+.sky{position:relative; min-height:440px; border-radius:26px; overflow:hidden;
+  background:linear-gradient(160deg, rgba(7,11,31,.9), rgba(16,28,69,.72));
+  border:1px solid rgba(159,170,209,.14)}
+.sky::before{content:''; position:absolute; inset:0;
+  background:radial-gradient(50% 50% at 30% 25%, rgba(184,255,106,.09), transparent 60%),
+             radial-gradient(45% 45% at 75% 70%, rgba(255,216,74,.09), transparent 60%)}
+.sky svg.links{position:absolute; inset:0; width:100%; height:100%; pointer-events:none}
+.node{position:absolute; transform:translate(-50%,-50%); background:none; border:0; padding:10px; z-index:3}
+.node .pip{display:block; width:13px;height:13px;border-radius:50%; background:rgba(159,170,209,.5); position:relative; transition:background .3s, box-shadow .3s, transform .3s}
+.node .nm{position:absolute; left:50%; top:calc(100% - 2px); transform:translateX(-50%); white-space:nowrap; font-size:12.5px; font-weight:600; color:var(--faint); transition:color .3s}
+.node:hover .pip,.node:focus-visible .pip,.node.on .pip{background:var(--glow); transform:scale(1.25); box-shadow:0 0 0 5px rgba(255,216,74,.14), 0 0 26px 6px rgba(255,216,74,.55)}
+.node:hover .nm,.node:focus-visible .nm,.node.on .nm{color:#fff}
+.sky-studi{--sz:94px; left:50%; top:50%; transition:left .9s cubic-bezier(.2,.8,.2,1), top .9s cubic-bezier(.2,.8,.2,1); transform:translate(-50%,-140%)}
+
+.preview{position:relative; border-radius:26px; overflow:hidden; border:1px solid rgba(184,255,106,.2);
+  min-height:440px; display:flex; flex-direction:column; justify-content:flex-end}
+.preview img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:brightness(.55) saturate(.85); transition:opacity .55s, transform 6s ease-out}
+.preview::after{content:''; position:absolute; inset:0; background:linear-gradient(180deg, rgba(7,11,31,.25) 0%, rgba(7,11,31,.9) 68%, rgba(7,11,31,.97) 100%)}
+.preview-body{position:relative; z-index:2; padding:clamp(24px,3vw,34px)}
+.preview h3{font-size:clamp(26px,3vw,36px)}
+.preview p{margin-top:12px; color:var(--muted); font-size:15.5px; max-width:34ch}
+.preview .facts{display:flex; gap:22px; margin:20px 0 24px; flex-wrap:wrap}
+.preview .facts div{font-size:13px; color:var(--faint)}
+.preview .facts b{display:block; font-family:var(--serif); font-size:21px; color:var(--lime); font-weight:600; margin-bottom:2px}
+
+/* ---------- SERVICES: waypoints ---------- */
+.way{display:grid; grid-template-columns:repeat(3,1fr); gap:18px}
+.wp{position:relative; padding:30px 26px 28px; border-radius:var(--r); border:1px solid rgba(159,170,209,.14);
+  background:linear-gradient(170deg, rgba(13,22,56,.8), rgba(7,11,31,.55)); transition:border-color .35s, transform .35s, background .35s}
+.wp:hover{border-color:rgba(255,230,109,.4); transform:translateY(-4px); background:linear-gradient(170deg, rgba(22,37,90,.85), rgba(10,16,48,.6))}
+.wp .lamp{width:34px;height:34px;border-radius:50%; display:grid; place-items:center; margin-bottom:20px;
+  background:rgba(255,230,109,.1); border:1px solid rgba(255,230,109,.3); transition:box-shadow .35s, background .35s}
+.wp:hover .lamp{background:rgba(255,230,109,.2); box-shadow:0 0 26px 4px rgba(255,216,74,.35)}
+.wp .lamp i{width:9px;height:9px;border-radius:50%;background:var(--glow); box-shadow:0 0 12px 2px rgba(255,216,74,.7)}
+.wp h3{font-size:20.5px; font-family:var(--sans); font-weight:700; letter-spacing:-.01em}
+.wp p{margin-top:10px; font-size:14.8px; color:var(--muted)}
+.wp .go{margin-top:16px; font-size:14px; font-weight:600; color:var(--lime); opacity:0; transform:translateY(4px); transition:opacity .3s, transform .3s}
+.wp:hover .go, .wp:focus-within .go{opacity:1; transform:translateY(0)}
+
+/* ---------- JOURNEY ---------- */
+.journey-track{position:relative; margin-top:clamp(30px,4vw,50px)}
+.journey-svg{width:100%; height:150px; display:block; overflow:visible}
+.jpath{fill:none; stroke:rgba(159,170,209,.2); stroke-width:2; stroke-dasharray:6 8}
+.jlit{fill:none; stroke:url(#jgrad); stroke-width:2.5; stroke-linecap:round; transition:stroke-dashoffset .1s linear}
+.jsteps{display:grid; grid-template-columns:repeat(4,1fr); gap:18px; margin-top:-46px; position:relative; z-index:2}
+.js{padding:0 8px; text-align:center; opacity:.4; transition:opacity .6s}
+.js.on{opacity:1}
+.js .bulb{width:44px;height:44px;border-radius:50%;margin:0 auto 18px; display:grid; place-items:center;
+  background:rgba(7,11,31,.95); border:1px solid rgba(159,170,209,.25); transition:border-color .6s, box-shadow .6s}
+.js.on .bulb{border-color:var(--glow); box-shadow:0 0 0 6px rgba(255,216,74,.1), 0 0 34px 6px rgba(255,216,74,.4)}
+.js .bulb i{width:11px;height:11px;border-radius:50%;background:rgba(159,170,209,.45); transition:background .6s, box-shadow .6s}
+.js.on .bulb i{background:var(--glow); box-shadow:0 0 14px 3px rgba(255,216,74,.8)}
+.js h3{font-family:var(--sans); font-weight:700; font-size:19px}
+.js p{margin-top:9px; font-size:14.5px; color:var(--muted)}
+.js a{display:inline-block; margin-top:13px; font-size:13.5px; font-weight:600; color:var(--lime); border-bottom:1px solid rgba(184,255,106,.3); padding-bottom:2px}
+
+/* ---------- EVENTS ---------- */
+.ev-grid{display:grid; grid-template-columns:1.25fr 1fr 1fr; gap:18px}
+.ev{position:relative; border-radius:var(--r); overflow:hidden; border:1px solid rgba(159,170,209,.15);
+  background:linear-gradient(165deg, rgba(13,22,56,.85), rgba(7,11,31,.6)); padding:26px; display:flex; flex-direction:column; min-height:270px;
+  transition:border-color .35s, transform .35s}
+.ev:hover{border-color:rgba(184,255,106,.42); transform:translateY(-4px)}
+.ev .date{display:inline-flex; flex-direction:column; align-items:center; justify-content:center; width:66px; height:66px; border-radius:16px;
+  background:rgba(255,230,109,.09); border:1px solid rgba(255,230,109,.3); margin-bottom:22px; transition:box-shadow .35s}
+.ev:hover .date{box-shadow:0 0 30px -4px rgba(255,216,74,.5)}
+.ev .date b{font-family:var(--serif); font-size:25px; line-height:1; color:var(--glow-3); font-weight:600}
+.ev .date span{font-size:11px; letter-spacing:.08em; color:var(--glow); margin-top:3px; text-transform:uppercase}
+.ev .tag{position:absolute; top:26px; right:26px; font-size:11.5px; font-weight:700; letter-spacing:.03em; padding:5px 11px; border-radius:999px;
+  background:rgba(184,255,106,.12); color:var(--lime); border:1px solid rgba(184,255,106,.28)}
+.ev h3{font-family:var(--sans); font-weight:700; font-size:19.5px; letter-spacing:-.01em}
+.ev p{margin-top:10px; font-size:14.5px; color:var(--muted)}
+.ev .meta{margin-top:auto; padding-top:20px; font-size:13.5px; color:var(--faint); display:flex; gap:16px; flex-wrap:wrap}
+.ev.feature{background:linear-gradient(160deg, rgba(22,37,90,.9), rgba(10,16,48,.75))}
+
+/* ---------- STORIES ---------- */
+.stories{display:grid; grid-template-columns:repeat(3,1fr); gap:20px}
+.story{position:relative; border-radius:var(--r); padding:28px; border:1px solid rgba(159,170,209,.15);
+  background:linear-gradient(170deg, rgba(13,22,56,.82), rgba(7,11,31,.55)); transition:border-color .35s, transform .35s}
+.story:hover{border-color:rgba(255,230,109,.35); transform:translateY(-4px)}
+.story .mark{font-family:var(--serif); font-size:52px; line-height:.6; color:rgba(184,255,106,.3); height:26px}
+.story blockquote{margin:16px 0 0; font-size:15.5px; line-height:1.65; color:#DCE3FA}
+.story .who{display:flex; align-items:center; gap:14px; margin-top:24px; padding-top:20px; border-top:1px solid rgba(159,170,209,.14)}
+.story .who img{width:52px;height:52px;border-radius:50%;object-fit:cover; border:1px solid rgba(255,230,109,.35); box-shadow:0 0 20px -4px rgba(255,216,74,.5)}
+.story .who b{display:block; font-size:15px; font-weight:700}
+.story .who span{font-size:13px; color:var(--faint)}
+
+/* ---------- RESOURCES ---------- */
+.res{display:grid; grid-template-columns:repeat(4,1fr); gap:16px}
+.rc{position:relative; padding:26px 22px; border-radius:18px; border:1px solid rgba(159,170,209,.14);
+  background:rgba(10,16,48,.55); transition:background .35s, border-color .35s, transform .35s; display:block}
+.rc:hover{background:rgba(22,37,90,.7); border-color:rgba(255,230,109,.38); transform:translateY(-4px)}
+.rc .d{font-size:12.5px; color:var(--faint); margin-bottom:14px}
+.rc h3{font-family:var(--sans); font-weight:700; font-size:16.5px; line-height:1.35}
+.rc .k{margin-top:16px; font-size:13px; font-weight:600; color:var(--lime)}
+
+/* ---------- PARTNERS ---------- */
+.partners{display:flex; flex-wrap:wrap; gap:14px; justify-content:center; margin-top:34px}
+.partners span{font-size:14.5px; font-weight:600; color:var(--muted); padding:12px 20px; border-radius:12px;
+  border:1px solid rgba(159,170,209,.16); background:rgba(10,16,48,.5); transition:color .3s, border-color .3s}
+.partners span:hover{color:#fff; border-color:rgba(184,255,106,.4)}
+
+/* ---------- FINAL CTA ---------- */
+.final{text-align:center; position:relative; overflow:hidden;
+  background:linear-gradient(180deg, rgba(16,28,69,.65), rgba(22,37,90,.9) 55%, rgba(13,22,56,.95))}
+.final::before{content:''; position:absolute; left:50%; top:36%; transform:translate(-50%,-50%); width:min(900px,110vw); aspect-ratio:1;
+  background:radial-gradient(circle, rgba(255,216,74,.2), rgba(255,216,74,.06) 38%, transparent 66%); pointer-events:none}
+.final .inner{position:relative; z-index:2}
+.final h2{font-size:clamp(34px,5vw,64px); max-width:16ch; margin:0 auto}
+.final p{margin:22px auto 0; max-width:48ch; color:#C3CCEB; font-size:17.5px}
+.final .hero-actions{justify-content:center}
+.final-studi{position:relative; margin:0 auto 22px; width:206px}
+
+/* ---------- FOOTER ---------- */
+footer{background:linear-gradient(180deg, rgba(7,11,31,.7), rgba(7,11,31,.96)); padding:76px 0 34px; position:relative}
+.fgrid{display:grid; grid-template-columns:1.6fr 1fr 1fr 1fr 1fr; gap:34px}
+.fgrid h4{font-size:13px; font-weight:700; color:#fff; margin:0 0 16px; letter-spacing:.01em}
+.fgrid ul{list-style:none; margin:0; padding:0; display:grid; gap:11px}
+.fgrid a{font-size:14px; color:var(--faint); transition:color .25s}
+.fgrid a:hover{color:var(--lime)}
+.fabout p{margin-top:18px; font-size:14px; color:var(--faint); max-width:36ch}
+.social{display:flex; gap:10px; margin-top:22px}
+.social a{width:36px;height:36px;border-radius:50%; display:grid; place-items:center; border:1px solid rgba(159,170,209,.2); color:var(--muted); font-size:12px; font-weight:700; transition:border-color .25s,color .25s}
+.social a:hover{border-color:var(--lime); color:var(--lime)}
+.aqf{margin-top:54px; padding-top:28px; border-top:1px solid rgba(159,170,209,.13); font-size:13.5px; color:var(--faint); max-width:78ch; line-height:1.65}
+.aqf b{color:var(--muted)}
+.fbot{margin-top:26px; display:flex; gap:20px; flex-wrap:wrap; align-items:center; font-size:13px; color:var(--faint)}
+.fbot a:hover{color:var(--lime)}
+.footer-studi{position:absolute; right:5%; bottom:18px; --sz:86px; opacity:.55}
+
+/* ---------- STUDI DOCK ---------- */
+.dock{position:fixed; right:22px; bottom:22px; z-index:130}
+.dock-btn{width:76px;height:76px;border-radius:50%; border:1px solid rgba(255,230,109,.4); background:rgba(10,16,48,.92);
+  backdrop-filter:blur(10px); display:grid; place-items:center; padding:0; box-shadow:0 14px 44px -14px rgba(255,216,74,.7); transition:transform .25s}
+.dock-btn:hover{transform:scale(1.06)}
+.dock-btn svg{width:54px;height:auto; overflow:visible}
+.nudge{position:absolute; right:88px; bottom:16px; white-space:nowrap; background:rgba(10,16,48,.95); border:1px solid rgba(255,230,109,.3);
+  padding:10px 15px; border-radius:14px 14px 4px 14px; font-size:14px; font-weight:500; opacity:0; transform:translateX(8px); transition:.4s; pointer-events:none}
+.nudge.on{opacity:1; transform:translateX(0)}
+.panel{position:absolute; right:0; bottom:90px; width:min(340px,calc(100vw - 44px)); border-radius:22px; overflow:hidden;
+  background:rgba(10,16,48,.97); backdrop-filter:blur(20px); border:1px solid rgba(255,230,109,.26);
+  box-shadow:0 40px 90px -30px rgba(0,0,0,.95); opacity:0; transform:translateY(12px) scale(.97); pointer-events:none; transition:.32s cubic-bezier(.2,.8,.2,1)}
+.panel.on{opacity:1; transform:none; pointer-events:auto}
+.panel-h{padding:20px 22px 16px; border-bottom:1px solid rgba(159,170,209,.14); display:flex; gap:13px; align-items:center}
+.panel-h svg{width:46px;height:auto; flex:none; overflow:visible}
+.panel-h b{display:block; font-size:15px}
+.panel-h span{font-size:13px; color:var(--faint)}
+.panel-h button{margin-left:auto; background:none; border:0; color:var(--faint); font-size:20px; line-height:1; padding:4px 6px}
+.panel-body{padding:14px; max-height:min(430px,54vh); overflow-y:auto}
+.opt{display:block; width:100%; text-align:left; background:rgba(22,37,90,.4); border:1px solid rgba(159,170,209,.14);
+  border-radius:13px; padding:12px 15px; font-size:14.3px; font-weight:500; margin-bottom:8px; transition:background .22s, border-color .22s}
+.opt:hover{background:rgba(184,255,106,.09); border-color:rgba(184,255,106,.42)}
+.answer{padding:4px 4px 8px; font-size:14.3px; line-height:1.6; color:#D6DEF8}
+.answer .go{display:inline-flex; margin-top:14px; background:var(--cta); color:#fff; font-weight:700; font-size:14px; padding:11px 18px; border-radius:999px; border:0}
+.back{background:none;border:0;color:var(--lime);font-size:13.5px;font-weight:600;padding:6px 0 12px}
+
+/* ---------- FIREFLY GUIDE SPARKS ---------- */
+.spark{position:fixed; width:6px;height:6px;border-radius:50%; background:var(--glow); pointer-events:none; z-index:110;
+  box-shadow:0 0 12px 3px rgba(255,216,74,.85)}
+
+/* ---------- REVEAL ---------- */
+.rev{opacity:0; transform:translateY(22px); transition:opacity .9s cubic-bezier(.2,.8,.2,1), transform .9s cubic-bezier(.2,.8,.2,1)}
+.rev.in{opacity:1; transform:none}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width:1020px){
+  .nav-links,.nav-cta{display:none}
+  .burger{display:block}
+  .hero-grid{grid-template-columns:1fr}
+  .hero-art{max-width:440px; margin:12px auto 0}
+  .hero-studi{--sz:158px; right:0%; top:0}
+  .dest{grid-template-columns:1fr}
+  .sky{min-height:340px}
+  .preview{min-height:360px}
+  .fields{grid-template-columns:1fr 1fr}
+  .finder .btn-primary{grid-column:1/-1; justify-content:center}
+  .way{grid-template-columns:1fr 1fr}
+  .ev-grid{grid-template-columns:1fr 1fr}
+  .stories{grid-template-columns:1fr 1fr}
+  .res{grid-template-columns:1fr 1fr}
+  .fgrid{grid-template-columns:1fr 1fr 1fr}
+}
+@media (max-width:720px){
+  .wrap{padding:0 20px}
+  .trust-rail{grid-template-columns:1fr 1fr; gap:8px 0}
+  .trust-rail::before{display:none}
+  .point{border-left:1px solid rgba(255,230,109,.2); text-align:left; padding:12px 0 12px 16px}
+  .dot{margin:0 0 12px}
+  /* journey becomes vertical */
+  .journey-svg{display:none}
+  .jsteps{grid-template-columns:1fr; margin-top:0; gap:0; position:relative}
+  .jsteps::before{content:''; position:absolute; left:21px; top:14px; bottom:34px; width:2px; background:linear-gradient(180deg,var(--glow),rgba(184,255,106,.5),transparent)}
+  .js{display:grid; grid-template-columns:44px 1fr; gap:18px; text-align:left; padding:0 0 30px}
+  .js .bulb{margin:0}
+  .fields{grid-template-columns:1fr}
+  .way,.ev-grid,.stories,.res{grid-template-columns:1fr}
+  .fgrid{grid-template-columns:1fr 1fr}
+  .finder-studi{display:none}
+  .dock{right:16px; bottom:16px}
+  .hero-studi{--sz:124px; right:2%}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important}
+  html{scroll-behavior:auto}
+  .rev{opacity:1; transform:none}
+  #fireflies{display:none}
+  .say{opacity:1; transform:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- ===== Studi character (single source of truth, reused via <use>) ===== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <radialGradient id="lanternG" cx="50%" cy="38%" r="62%">
+      <stop offset="0%" stop-color="#FFFDF0"/><stop offset="42%" stop-color="#FFE66D"/><stop offset="100%" stop-color="#FFC81E"/>
+    </radialGradient>
+    <radialGradient id="auraG" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFD84A" stop-opacity=".55"/><stop offset="55%" stop-color="#FFD84A" stop-opacity=".14"/><stop offset="100%" stop-color="#FFD84A" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="bodyG" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#5C5747"/><stop offset="100%" stop-color="#403C30"/>
+    </linearGradient>
+    <linearGradient id="jgrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#FFD84A"/><stop offset="55%" stop-color="#FFE66D"/><stop offset="100%" stop-color="#B8FF6A"/>
+    </linearGradient>
+    <filter id="soft" x="-70%" y="-70%" width="240%" height="240%">
+      <feGaussianBlur stdDeviation="9"/>
+    </filter>
+
+    <clipPath id="studiBodyClip"><path d="M75 126 C70 150 68 174 68 196 C68 220 82 238 100 238 C118 238 132 220 132 196 C132 174 130 150 125 126 Z"/></clipPath>
+    <linearGradient id="glowG" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0.48" stop-color="#FFE761" stop-opacity="0"/>
+      <stop offset="0.56" stop-color="#C9A227" stop-opacity=".65"/>
+      <stop offset="0.62" stop-color="#F5CE22" stop-opacity="1"/>
+      <stop offset="0.76" stop-color="#FFE761" stop-opacity="1"/>
+      <stop offset="1" stop-color="#FFF6C8" stop-opacity="1"/>
+    </linearGradient>
+    <filter id="soft2" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="7"/></filter>
+    <symbol id="studi" viewBox="0 0 200 300">
+  <g class="s-all">
+    <ellipse class="s-aura" cx="100" cy="206" rx="92" ry="86" fill="url(#auraG)"/>
+
+    <g class="s-ant" stroke="#2B2820" stroke-width="4.4" stroke-linecap="round" fill="none">
+      <path d="M85 76 C81 60 72 46 64 38"/>
+      <path d="M115 76 C119 60 128 46 136 38"/>
+    </g>
+    <g class="s-orbs">
+      <circle cx="62" cy="31" r="18" fill="#FFD84A" filter="url(#soft)" opacity=".85"/>
+      <circle cx="138" cy="31" r="18" fill="#FFD84A" filter="url(#soft)" opacity=".85"/>
+      <circle cx="62" cy="31" r="11" fill="#FFE66D" stroke="#D9A400" stroke-width="1.8"/>
+      <circle cx="138" cy="31" r="11" fill="#FFE66D" stroke="#D9A400" stroke-width="1.8"/>
+    </g>
+
+    <g class="s-wingL" fill="#F1EDDB" stroke="#5F5943" stroke-width="2.4">
+      <ellipse cx="33" cy="110" rx="29" ry="12.5" transform="rotate(16 33 110)"/>
+      <ellipse cx="48" cy="140" rx="19" ry="8.5" transform="rotate(-38 48 140)"/>
+    </g>
+    <g class="s-wingR" fill="#F1EDDB" stroke="#5F5943" stroke-width="2.4">
+      <ellipse cx="167" cy="110" rx="29" ry="12.5" transform="rotate(-16 167 110)"/>
+      <ellipse cx="152" cy="140" rx="19" ry="8.5" transform="rotate(38 152 140)"/>
+    </g>
+
+    <g stroke="#BCB088" stroke-width="2.8" fill="none" stroke-linecap="round">
+      <path d="M73 142 C61 148 53 158 51 170"/>
+      <path d="M71 160 C59 167 52 178 51 190"/>
+      <path d="M73 178 C63 187 57 196 57 206"/>
+      <path d="M127 142 C139 148 147 158 149 170"/>
+      <path d="M129 160 C141 167 148 178 149 190"/>
+      <path d="M127 178 C137 187 143 196 143 206"/>
+    </g>
+
+    <!-- one continuous body: thorax and abdomen share a single silhouette -->
+    <path class="s-body" d="M75 126 C70 150 68 174 68 196 C68 220 82 238 100 238 C118 238 132 220 132 196 C132 174 130 150 125 126 Z"
+          fill="url(#bodyG)" stroke="#241F17" stroke-width="3.2"/>
+    <g clip-path="url(#studiBodyClip)">
+      <rect class="s-glow" x="60" y="126" width="80" height="112" fill="url(#glowG)"/>
+      <ellipse class="s-hot" cx="100" cy="214" rx="26" ry="21" fill="#FFFDEB" opacity=".55" filter="url(#soft2)"/>
+    </g>
+    <g class="s-bands" stroke="#463F2F" stroke-width="2.4" fill="none" opacity=".65" stroke-linecap="round">
+      <path d="M70 152 Q100 160 130 152"/>
+      <path d="M68 174 Q100 183 132 174"/>
+      <path d="M68 193 Q100 203 132 193" opacity=".4"/>
+    </g>
+
+    <ellipse class="s-head" cx="100" cy="106" rx="49" ry="41" fill="url(#bodyG)" stroke="#241F17" stroke-width="3.4"/>
+    <ellipse cx="88" cy="86" rx="24" ry="12" fill="#fff" opacity=".05"/>
+
+    <g class="s-eyes">
+      <ellipse cx="76.5" cy="107" rx="11.5" ry="12.6" fill="#12100E"/>
+      <ellipse cx="123.5" cy="107" rx="11.5" ry="12.6" fill="#12100E"/>
+      <circle class="s-pupil" cx="78.5" cy="113.5" r="3.2" fill="#FFE04A"/>
+      <circle class="s-pupil" cx="121.5" cy="113.5" r="3.2" fill="#FFE04A"/>
+    </g>
+    <path class="s-smile" d="M90 118 Q100 125.5 110 118" stroke="#1D1A14" stroke-width="3.3" fill="none" stroke-linecap="round"/>
+
+    <g class="s-ask" opacity="0">
+      <circle cx="152" cy="58" r="17" fill="#0A1030" stroke="#FFE66D" stroke-width="2"/>
+      <text x="152" y="66" text-anchor="middle" font-family="Hanken Grotesk, sans-serif" font-size="22" font-weight="800" fill="#FFE66D">?</text>
+    </g>
+    <g class="s-cheer" opacity="0" fill="#FFE66D">
+      <path d="M40 58 l3.4 8.6 8.6 3.4 -8.6 3.4 -3.4 8.6 -3.4 -8.6 -8.6 -3.4 8.6 -3.4 z"/>
+      <path d="M164 80 l2.6 6.6 6.6 2.6 -6.6 2.6 -2.6 6.6 -2.6 -6.6 -6.6 -2.6 6.6 -2.6 z"/>
+      <path d="M100 16 l2.2 5.6 5.6 2.2 -5.6 2.2 -2.2 5.6 -2.2 -5.6 -5.6 -2.2 5.6 -2.2 z"/>
+    </g>
+  </g>
+</symbol>
+  </defs>
+</svg>
+
+<canvas id="fireflies" aria-hidden="true"></canvas>
+
+<!-- ===================== NAV ===================== -->
+<header class="nav" id="nav">
+  <div class="nav-in">
+    <a href="#" class="logo" aria-label="StudyIn home">
+      <svg viewBox="0 0 32 32" aria-hidden="true">
+        <g fill="#F5335B">
+          <rect x="13.6" y="1" width="4.8" height="30" rx="2.4"/>
+          <rect x="13.6" y="1" width="4.8" height="30" rx="2.4" transform="rotate(60 16 16)"/>
+          <rect x="13.6" y="1" width="4.8" height="30" rx="2.4" transform="rotate(120 16 16)"/>
+        </g>
+      </svg>
+      <span>StudyIn</span>
+    </a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="#destinations">Destinations</a>
+      <a href="#finder">Course finder</a>
+      <a href="#services">Services</a>
+      <a href="#resources">Resources</a>
+      <a href="#events">Events</a>
+      <a href="#footer">Company</a>
+      <button class="nav-cta js-cta">Start my journey</button>
+    </nav>
+    <button class="burger" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="main" class="page">
+
+<!-- ===================== HERO ===================== -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow"><i></i>September 2026 applications close soon</span>
+        <h1>Make your <span class="lit">study abroad</span> investment count</h1>
+        <p class="lede">Get a personalised university shortlist tailored to your budget and goals before September 2026 applications close.</p>
+        <div class="hero-actions">
+          <button class="btn btn-primary js-cta" id="heroCta">Start my journey <span class="arw">→</span></button>
+          <a class="btn btn-ghost" href="#finder">Book free counselling</a>
+        </div>
+      </div>
+
+      <div class="hero-art">
+        <div class="halo"></div>
+        <div class="orb">
+          <img src="https://gostudyin.com/wp-content/uploads/2025/03/study-in-uk-home.jpg" alt="International students on a university campus at dusk" loading="eager">
+        </div>
+        <div class="studi hero-studi float pose-wave"><svg viewBox="0 0 200 300"><use href="#studi"/></svg></div>
+        <div class="say hero-say" id="heroSay"><b>Hi, I'm Studi.</b><br>Let me help you find your way.</div>
+      </div>
+    </div>
+
+    <!-- TRUST CONSTELLATION -->
+    <div class="trust rev">
+      <div class="trust-rail">
+        <div class="point"><div class="dot"></div><div class="num">2006</div><div class="lab">Guiding students since</div></div>
+        <div class="point"><div class="dot"></div><div class="num">100+</div><div class="lab">Branches worldwide</div></div>
+        <div class="point"><div class="dot"></div><div class="num">4.7<span style="font-size:.55em;color:var(--muted)">/5.0</span></div><div class="lab">From 52k student reviews</div></div>
+        <div class="point"><div class="dot"></div><div class="num">1.3M</div><div class="lab">Students assisted</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== COURSE FINDER ===================== -->
+<section class="tone-b" id="finder">
+  <div class="edge edge-t"></div>
+  <div class="wrap">
+    <div class="shead rev" style="margin-bottom:34px">
+      <h2>Find the course that's right for you</h2>
+      <p>Search 100,000+ courses across seven destinations. Every answer you give lights up more of the path.</p>
+    </div>
+    <div class="finder rev">
+      <div class="fields">
+        <div class="field" data-field>
+          <label for="f1">What are you looking for?</label>
+          <select id="f1">
+            <option value="">Choose a study level</option>
+            <option>Undergraduate</option><option>Postgraduate</option><option>Research</option>
+            <option>Foundation / Pathway</option><option>Language preparation</option>
+          </select>
+        </div>
+        <div class="field" data-field>
+          <label for="f2">What do you want to study?</label>
+          <select id="f2">
+            <option value="">Choose a subject</option>
+            <option>Business &amp; Management</option><option>Computer Science</option><option>Engineering</option>
+            <option>Accounting &amp; Finance</option><option>Medicine &amp; Dentistry</option><option>Law</option>
+            <option>Data Science &amp; Analytics</option><option>Nursing &amp; Health</option><option>Architecture &amp; Design</option>
+          </select>
+        </div>
+        <div class="field" data-field>
+          <label for="f3">Where do you want to study?</label>
+          <select id="f3">
+            <option value="">Choose a destination</option>
+            <option>United Kingdom</option><option>Australia</option><option>Canada</option><option>Dubai</option>
+            <option>Ireland</option><option>New Zealand</option><option>United States</option>
+          </select>
+        </div>
+        <button class="btn btn-primary" id="findBtn">Find my course <span class="arw">→</span></button>
+      </div>
+      <div class="finder-foot" id="finderFoot">Free to search. No account needed. A counsellor reviews every shortlist before it reaches you.</div>
+      <div class="studi finder-studi float pose-ponder"><svg viewBox="0 0 200 300"><use href="#studi"/></svg></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== DESTINATIONS ===================== -->
+<section class="tone-c" id="destinations">
+  <div class="wrap">
+    <div class="shead-row rev">
+      <div class="shead">
+        <h2>Start your journey with the right destination</h2>
+        <p>Seven countries where StudyIn has offices, university partnerships and counsellors on the ground. Hover a light to look closer.</p>
+      </div>
+      <a class="textlink" href="#">All destinations →</a>
+    </div>
+
+    <div class="dest rev">
+      <div class="sky" id="sky">
+        <svg class="links" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M20 30 L38 20 L62 34 L47 55 L72 62 L30 68 L58 82" fill="none" stroke="rgba(255,230,109,.16)" stroke-width=".3" stroke-dasharray="1.5 2"/>
+        </svg>
+        <button class="node on" style="left:20%;top:30%" data-d="uk"><span class="pip"></span><span class="nm">United Kingdom</span></button>
+        <button class="node" style="left:38%;top:20%" data-d="ie"><span class="pip"></span><span class="nm">Ireland</span></button>
+        <button class="node" style="left:62%;top:34%" data-d="ca"><span class="pip"></span><span class="nm">Canada</span></button>
+        <button class="node" style="left:47%;top:55%" data-d="us"><span class="pip"></span><span class="nm">United States</span></button>
+        <button class="node" style="left:72%;top:62%" data-d="ae"><span class="pip"></span><span class="nm">Dubai</span></button>
+        <button class="node" style="left:30%;top:68%" data-d="au"><span class="pip"></span><span class="nm">Australia</span></button>
+        <button class="node" style="left:58%;top:82%" data-d="nz"><span class="pip"></span><span class="nm">New Zealand</span></button>
+        <div class="studi sky-studi pose-guide" id="skyStudi"><svg viewBox="0 0 200 300"><use href="#studi"/></svg></div>
+      </div>
+
+      <div class="preview" id="preview" aria-live="polite">
+        <img id="pvImg" src="https://gostudyin.com/wp-content/uploads/2025/03/study-in-uk-home.jpg" alt="">
+        <div class="preview-body">
+          <h3 id="pvName">United Kingdom</h3>
+          <p id="pvText">Explore universities, courses, scholarships and student life.</p>
+          <div class="facts">
+            <div><b id="pvA">160+</b>Universities</div>
+            <div><b id="pvB">2 yrs</b>Post-study work</div>
+            <div><b id="pvC">Sep &amp; Jan</b>Main intakes</div>
+          </div>
+          <a class="btn btn-lime" href="#" id="pvCta">Explore UK →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SERVICES ===================== -->
+<section class="tone-a" id="services">
+  <div class="wrap">
+    <div class="shead-row rev">
+      <div class="shead">
+        <h2>Every step has someone holding a light</h2>
+        <p>Free for students, from your first question to your first week on campus.</p>
+      </div>
+      <a class="textlink" href="#">All services →</a>
+    </div>
+    <div class="way rev">
+      <a class="wp" href="#"><div class="lamp"><i></i></div><h3>University selection</h3><p>A shortlist built around your grades, budget and career goal — not around who pays us most.</p><div class="go">Learn more →</div></a>
+      <a class="wp" href="#"><div class="lamp"><i></i></div><h3>Applications</h3><p>Statement of purpose, references and submissions handled with you, deadline by deadline.</p><div class="go">Learn more →</div></a>
+      <a class="wp" href="#"><div class="lamp"><i></i></div><h3>Visa guidance</h3><p>Document checklists, financial evidence and interview preparation for each destination.</p><div class="go">Learn more →</div></a>
+      <a class="wp" href="#"><div class="lamp"><i></i></div><h3>Language preparation</h3><p>IELTS, PTE and TOEFL coaching, plus advice if your score falls short of target.</p><div class="go">Learn more →</div></a>
+      <a class="wp" href="#"><div class="lamp"><i></i></div><h3>Pre-departure support</h3><p>Accommodation, banking, packing and briefings before you get on the plane.</p><div class="go">Learn more →</div></a>
+      <a class="wp" href="#"><div class="lamp"><i></i></div><h3>Student essentials</h3><p>SIM cards, insurance, airport pickup and settling-in help once you arrive.</p><div class="go">Learn more →</div></a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== JOURNEY ===================== -->
+<section class="tone-d" id="journey">
+  <div class="wrap">
+    <div class="shead rev" style="margin-bottom:20px">
+      <h2>What the next twelve months look like</h2>
+      <p>Four stages, and a counsellor with you through all of them.</p>
+    </div>
+
+    <div class="journey-track rev" id="track">
+      <svg class="journey-svg" viewBox="0 0 1000 150" preserveAspectRatio="none" aria-hidden="true">
+        <path class="jpath" d="M60 110 C220 20, 320 20, 440 76 C560 132, 680 132, 800 62 C860 28, 900 24, 940 30"/>
+        <path class="jlit" id="jlit" d="M60 110 C220 20, 320 20, 440 76 C560 132, 680 132, 800 62 C860 28, 900 24, 940 30"/>
+      </svg>
+      <div class="jsteps">
+        <div class="js" data-step><div class="bulb"><i></i></div><h3>Choose</h3><p>Free counselling and a shortlist matched to your budget, grades and goals.</p><a href="#finder">Course finder →</a></div>
+        <div class="js" data-step><div class="bulb"><i></i></div><h3>Apply</h3><p>Applications, personal statement and references prepared and submitted with you.</p><a href="#services">Application support →</a></div>
+        <div class="js" data-step><div class="bulb"><i></i></div><h3>Prepare</h3><p>Offer acceptance, visa documents, English tests and financial evidence.</p><a href="#services">Visa guidance →</a></div>
+        <div class="js" data-step><div class="bulb"><i></i></div><h3>Arrive</h3><p>Accommodation, airport pickup and a first-month check-in once you land.</p><a href="#services">Student essentials →</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== EVENTS ===================== -->
+<section class="tone-c" id="events">
+  <div class="wrap">
+    <div class="shead-row rev">
+      <div class="shead">
+        <h2>University fairs, webinars and open days</h2>
+        <p>Meet admissions teams in person or online. Free to attend, in 40+ countries.</p>
+      </div>
+      <a class="textlink" href="#">Explore events →</a>
+    </div>
+    <div class="ev-grid rev">
+      <a class="ev feature" href="#">
+        <span class="tag">In person</span>
+        <span class="date"><b>14</b><span>Sep</span></span>
+        <h3>StudyIn University Fair — Dhaka</h3>
+        <p>Meet 40+ UK, Australian and Canadian universities in one afternoon. On-the-spot offers and application fee waivers.</p>
+        <span class="meta"><span>Radisson Blu, Dhaka</span><span>11:00 – 17:00</span></span>
+      </a>
+      <a class="ev" href="#">
+        <span class="tag">Online</span>
+        <span class="date"><b>22</b><span>Sep</span></span>
+        <h3>September 2026 visa document webinar</h3>
+        <p>What to prepare, what gets refused, and how to fix a weak financial file.</p>
+        <span class="meta"><span>Zoom</span><span>19:00 BST</span></span>
+      </a>
+      <a class="ev" href="#">
+        <span class="tag">Open day</span>
+        <span class="date"><b>05</b><span>Oct</span></span>
+        <h3>Scholarships and funding clinic</h3>
+        <p>One-to-one slots on merit awards, bursaries and part-funding your degree.</p>
+        <span class="meta"><span>StudyIn office</span><span>By appointment</span></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== STORIES ===================== -->
+<section class="tone-a" id="stories">
+  <div class="wrap">
+    <div class="shead-row rev">
+      <div class="shead">
+        <h2>See where the journey can take you</h2>
+        <p>Real students, real offers. 250+ university partners across seven destinations.</p>
+      </div>
+      <a class="textlink" href="#">More student stories →</a>
+    </div>
+    <div class="stories rev">
+      <div class="story">
+        <div class="mark">&ldquo;</div>
+        <blockquote>The MSc in Urban Development and Planning is extremely competitive, but the right guidance made studying at UCL a reality. The service was exceptional from beginning to end.</blockquote>
+        <div class="who"><img src="https://gostudyin.com/wp-content/uploads/2025/10/Meghna.png" alt=""><div><b>Rashmi Lakshanya</b><span>University College London — Urban Development Planning</span></div></div>
+      </div>
+      <div class="story">
+        <div class="mark">&ldquo;</div>
+        <blockquote>They gave me a list of universities to consider and I chose Aston. I applied, received an offer and a £5,000 scholarship, and had help through every part of the visa process.</blockquote>
+        <div class="who"><img src="https://gostudyin.com/wp-content/uploads/2025/02/David.png" alt=""><div><b>Sudarshan</b><span>Aston University — Engineering</span></div></div>
+      </div>
+      <div class="story">
+        <div class="mark">&ldquo;</div>
+        <blockquote>I applied for a January intake and still got my UK student visa in time, without stress. I recommend StudyIn to anyone planning to study abroad.</blockquote>
+        <div class="who"><img src="https://gostudyin.com/wp-content/uploads/2025/10/Joanna-Alejandro-Headshot_Circle-Cut-Out.png" alt=""><div><b>Jehabuz Khan</b><span>University of Strathclyde — MSc Mechanical Engineering</span></div></div>
+      </div>
+    </div>
+
+    <div class="shead rev" style="margin:clamp(60px,7vw,90px) auto 0; text-align:center; max-width:none">
+      <h2 style="font-size:clamp(24px,2.6vw,32px)">250+ global university partners</h2>
+      <div class="partners">
+        <span>University of Oxford</span><span>UCL</span><span>University of Bath</span><span>University of Bristol</span>
+        <span>University of York</span><span>University of Exeter</span><span>University of Surrey</span>
+        <span>University of Nottingham</span><span>University of Kent</span><span>Swansea University</span>
+        <span>University of Westminster</span><span>University of Essex</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== RESOURCES ===================== -->
+<section class="tone-b" id="resources">
+  <div class="wrap">
+    <div class="shead-row rev">
+      <div class="shead">
+        <h2>Study guides, scholarships and answers</h2>
+        <p>Written by counsellors who process these applications every week.</p>
+      </div>
+      <a class="textlink" href="#">All study guides →</a>
+    </div>
+    <div class="res rev">
+      <a class="rc" href="#"><div class="d">28 Aug 2026</div><h3>Best courses to study in New Zealand: careers, salaries and post-study work</h3><div class="k">Study guide</div></a>
+      <a class="rc" href="#"><div class="d">26 Aug 2026</div><h3>English language requirements for Australia 2027: visa and university guide</h3><div class="k">Study guide</div></a>
+      <a class="rc" href="#"><div class="d">24 Aug 2026</div><h3>Student accommodation in the UK: is it too late to get a place?</h3><div class="k">Study guide</div></a>
+      <a class="rc" href="#"><div class="d">10 Aug 2026</div><h3>Nearly £19 million in scholarships unlocked across seven destinations</h3><div class="k">Scholarships</div></a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FINAL CTA ===================== -->
+<section class="final" id="counselling">
+  <div class="edge edge-t"></div>
+  <div class="wrap inner">
+    <div class="studi final-studi float pose-cheer" style="position:relative"><svg viewBox="0 0 200 300"><use href="#studi"/></svg></div>
+    <h2>Your next step is closer than you think</h2>
+    <p>Talk to a StudyIn expert and get guidance tailored to your goals. Free, with no obligation to apply anywhere.</p>
+    <div class="hero-actions">
+      <button class="btn btn-primary js-cta" id="finalCta">Start my journey <span class="arw">→</span></button>
+      <a class="btn btn-ghost" href="#">Book free counselling</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ===================== FOOTER ===================== -->
+<footer id="footer" class="page">
+  <div class="wrap">
+    <div class="fgrid">
+      <div class="fabout">
+        <a href="#" class="logo" aria-label="StudyIn home">
+          <svg viewBox="0 0 32 32" aria-hidden="true"><g fill="#F5335B">
+            <rect x="13.6" y="1" width="4.8" height="30" rx="2.4"/>
+            <rect x="13.6" y="1" width="4.8" height="30" rx="2.4" transform="rotate(60 16 16)"/>
+            <rect x="13.6" y="1" width="4.8" height="30" rx="2.4" transform="rotate(120 16 16)"/>
+          </g></svg><span>StudyIn</span>
+        </a>
+        <p>Navigating the path to global higher education can be complex, but you don't have to do it alone. Whatever your ambition, we're here to guide you every step of the way.</p>
+        <div class="social">
+          <a href="#" aria-label="LinkedIn">in</a><a href="#" aria-label="Facebook">f</a>
+          <a href="#" aria-label="YouTube">▶</a><a href="#" aria-label="Instagram">ig</a>
+        </div>
+      </div>
+      <div><h4>Destinations</h4><ul>
+        <li><a href="#">United Kingdom</a></li><li><a href="#">Australia</a></li><li><a href="#">Canada</a></li>
+        <li><a href="#">Dubai</a></li><li><a href="#">Ireland</a></li><li><a href="#">New Zealand</a></li><li><a href="#">United States</a></li>
+      </ul></div>
+      <div><h4>Quick links</h4><ul>
+        <li><a href="#finder">Course finder</a></li><li><a href="#services">Services</a></li><li><a href="#">Language prep</a></li>
+        <li><a href="#resources">Scholarships</a></li><li><a href="#events">Events</a></li><li><a href="#resources">Study guides</a></li><li><a href="whatsapp.html">Studi on WhatsApp</a></li>
+      </ul></div>
+      <div><h4>Company</h4><ul>
+        <li><a href="#">About</a></li><li><a href="#">Our team</a></li><li><a href="#">Global offices</a></li>
+        <li><a href="#">Trusted Education Agent</a></li><li><a href="#">News</a></li><li><a href="#">Careers</a></li>
+      </ul></div>
+      <div><h4>Policies</h4><ul>
+        <li><a href="#">Anti-bribery policy</a></li><li><a href="#">Code of conduct</a></li><li><a href="#">Whistleblower policy</a></li>
+        <li><a href="#">Modern slavery statement</a></li><li><a href="#">Student complaint policy</a></li>
+      </ul></div>
+    </div>
+
+    <div class="aqf">
+      <b>Agent Quality Framework (AQF) compliance.</b> StudyIn is committed to upholding the highest standards in international student recruitment. We adhere to the principles of the Agent Quality Framework, ensuring ethical practices, transparency and professionalism in all our services. Our agents are trained and certified to provide accurate and reliable guidance to students.
+    </div>
+    <div class="fbot">
+      <span>© 2026 StudyIn. All rights reserved.</span>
+      <a href="#">Terms of service</a><a href="#">Privacy policy</a><a href="#">Cookie policy</a>
+    </div>
+  </div>
+  <div class="studi footer-studi float"><svg viewBox="0 0 200 300"><use href="#studi"/></svg></div>
+</footer>
+
+<!-- ===================== STUDI DOCK ===================== -->
+<div class="dock">
+  <div class="nudge" id="nudge">Need a little help?</div>
+  <div class="panel" id="panel" role="dialog" aria-label="Studi guidance" aria-modal="false">
+    <div class="panel-h">
+      <svg viewBox="0 0 200 300"><use href="#studi"/></svg>
+      <div><b>Hi! What can I help you with?</b><span>Ask Studi</span></div>
+      <button id="panelClose" aria-label="Close">×</button>
+    </div>
+    <div class="panel-body" id="panelBody"></div>
+  </div>
+  <button class="dock-btn" id="dockBtn" aria-expanded="false" aria-controls="panel" aria-label="Open Studi guidance">
+    <svg viewBox="0 0 200 300"><use href="#studi"/></svg>
+  </button>
+</div>
+
+<script>
+(function(){
+'use strict';
+const RM = window.matchMedia('(prefers-reduced-motion: reduce)');
+const reduced = () => RM.matches;
+const mobile  = () => window.innerWidth < 760;
+
+/* --- inline Studi so pose classes can target his parts (<use> hides them in shadow DOM) --- */
+const symbol=document.getElementById('studi');
+if(symbol){
+  const art=symbol.innerHTML;
+  document.querySelectorAll('svg').forEach(s=>{
+    if(s.querySelector('use[href="#studi"]')) s.innerHTML=art;
+  });
+}
+
+/* ---------------- 1. Ambient fireflies (single canvas) ---------------- */
+const cv = document.getElementById('fireflies');
+const ctx = cv.getContext('2d');
+let W=0,H=0,flies=[],raf=null;
+
+function build(){
+  const dpr = Math.min(devicePixelRatio||1, 2);
+  W = cv.width  = innerWidth  * dpr;
+  H = cv.height = innerHeight * dpr;
+  cv.style.width = innerWidth+'px'; cv.style.height = innerHeight+'px';
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  const n = mobile() ? 9 : 26;
+  flies = Array.from({length:n}, () => ({
+    x: Math.random()*innerWidth, y: Math.random()*innerHeight,
+    r: 0.9 + Math.random()*1.6,
+    vx:(Math.random()-.5)*0.16, vy:(Math.random()-.5)*0.16,
+    ph: Math.random()*Math.PI*2, sp: 0.006 + Math.random()*0.012,
+    hue: Math.random() < 0.18 ? 'lime' : 'amber'
+  }));
+}
+
+function draw(){
+  ctx.clearRect(0,0,innerWidth,innerHeight);
+  for(const f of flies){
+    f.x += f.vx; f.y += f.vy; f.ph += f.sp;
+    if(f.x < -20) f.x = innerWidth+20; if(f.x > innerWidth+20) f.x = -20;
+    if(f.y < -20) f.y = innerHeight+20; if(f.y > innerHeight+20) f.y = -20;
+    const a = 0.22 + 0.55 * (0.5 + 0.5*Math.sin(f.ph));
+    const c = f.hue === 'lime' ? '184,255,106' : '255,216,74';
+    const g = ctx.createRadialGradient(f.x,f.y,0,f.x,f.y,f.r*9);
+    g.addColorStop(0, 'rgba('+c+','+a+')');
+    g.addColorStop(0.28,'rgba('+c+','+(a*0.28)+')');
+    g.addColorStop(1, 'rgba('+c+',0)');
+    ctx.fillStyle = g;
+    ctx.beginPath(); ctx.arc(f.x,f.y,f.r*9,0,6.283); ctx.fill();
+  }
+  raf = requestAnimationFrame(draw);
+}
+function start(){ if(reduced()){ cv.style.display='none'; return; } cv.style.display='block'; if(!raf) draw(); }
+function stop(){ if(raf){ cancelAnimationFrame(raf); raf=null; } }
+build(); start();
+addEventListener('resize', () => { build(); }, {passive:true});
+document.addEventListener('visibilitychange', () => document.hidden ? stop() : start());
+RM.addEventListener('change', () => { stop(); build(); start(); });
+
+/* ---------------- 2. Nav solidify ---------------- */
+const nav = document.getElementById('nav');
+addEventListener('scroll', () => nav.classList.toggle('solid', scrollY > 40), {passive:true});
+
+/* ---------------- 3. Scroll reveals ---------------- */
+const io = new IntersectionObserver((es) => {
+  es.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+}, {threshold:.14, rootMargin:'0px 0px -60px 0px'});
+document.querySelectorAll('.rev').forEach((el,i) => { el.style.transitionDelay = Math.min(i,3)*60+'ms'; io.observe(el); });
+
+/* ---------------- 4. Studi welcome (no loading screen) ---------------- */
+const heroSay = document.getElementById('heroSay');
+setTimeout(() => heroSay.classList.add('on'), 1100);
+setTimeout(() => heroSay.classList.remove('on'), 7200);
+
+/* ---------------- 5. Signature moment: fireflies form a path to the CTA ---------------- */
+function guideTo(btn){
+  if(reduced()) return;
+  const r = btn.getBoundingClientRect();
+  const tx = r.left + r.width/2, ty = r.top + r.height/2;
+  const n = mobile() ? 4 : 7;
+  for(let i=0;i<n;i++){
+    const s = document.createElement('div');
+    s.className = 'spark';
+    // organic start: scattered above-left of the button, never a straight dotted line
+    const sx = tx - 150 - Math.random()*190, sy = ty - 120 - Math.random()*150;
+    const cx = tx - 90 + (Math.random()-.5)*180, cy = ty - 150 + (Math.random()-.5)*90;
+    s.style.left = sx+'px'; s.style.top = sy+'px';
+    s.style.opacity = '0';
+    document.body.appendChild(s);
+    const dur = 900 + Math.random()*700, delay = i*70 + Math.random()*90;
+    const kf = [];
+    for(let t=0;t<=1.001;t+=0.1){
+      const x = (1-t)*(1-t)*sx + 2*(1-t)*t*cx + t*t*tx;
+      const y = (1-t)*(1-t)*sy + 2*(1-t)*t*cy + t*t*ty;
+      kf.push({transform:'translate('+(x-sx)+'px,'+(y-sy)+'px) scale('+(0.6+t*0.7)+')',
+               opacity: t<0.15 ? t/0.15*0.9 : (t>0.85 ? (1-t)/0.15*0.9 : 0.9)});
+    }
+    const anim = s.animate(kf, {duration:dur, delay, easing:'cubic-bezier(.4,0,.3,1)'});
+    anim.onfinish = () => s.remove();
+    setTimeout(() => s.remove(), dur+delay+400);
+  }
+}
+document.querySelectorAll('.js-cta').forEach(b => {
+  b.addEventListener('mouseenter', () => guideTo(b));
+  b.addEventListener('focus', () => guideTo(b));
+  b.addEventListener('click', () => { document.getElementById('finder').scrollIntoView({behavior:reduced()?'auto':'smooth'}); });
+});
+
+/* ---------------- 6. Course finder: progressive illumination ---------------- */
+const fields = [...document.querySelectorAll('[data-field]')];
+const foot = document.getElementById('finderFoot');
+fields.forEach(f => {
+  const sel = f.querySelector('select');
+  sel.addEventListener('change', () => {
+    f.classList.toggle('lit', !!sel.value);
+    const done = fields.filter(x => x.classList.contains('lit')).length;
+    if(done === 3){ foot.textContent = 'Studi: that\u2019s everything I need — let\u2019s see what\u2019s out there.'; foot.style.color = 'var(--glow-3)'; }
+    else if(done > 0){ foot.textContent = (3-done) + ' more to go. Every answer narrows the shortlist.'; foot.style.color='var(--muted)'; }
+  });
+});
+document.getElementById('findBtn').addEventListener('click', () => {
+  const done = fields.filter(x => x.classList.contains('lit')).length;
+  foot.textContent = done === 3
+    ? 'Searching 100,000+ courses… a counsellor will review your shortlist before it reaches you.'
+    : 'Pick at least one option and I\u2019ll start narrowing things down.';
+  foot.style.color = 'var(--glow-3)';
+});
+
+/* ---------------- 7. Destinations constellation ---------------- */
+const D = {
+  uk:{n:'United Kingdom',t:'Explore universities, courses, scholarships and student life.',a:'160+',b:'2 yrs',c:'Sep & Jan',i:'https://gostudyin.com/wp-content/uploads/2025/03/study-in-uk-home.jpg'},
+  ie:{n:'Ireland',t:'English-taught degrees, a strong tech sector and a two-year stay-back option.',a:'20+',b:'2 yrs',c:'Sep & Jan',i:'https://gostudyin.com/wp-content/uploads/2025/03/study-in-ird-home.jpg'},
+  ca:{n:'Canada',t:'Co-op programmes, work rights while you study and a clear route to residency.',a:'100+',b:'3 yrs',c:'Sep, Jan & May',i:'https://gostudyin.com/wp-content/uploads/2025/03/study-in-canada-home.jpg'},
+  us:{n:'United States',t:'The widest choice of majors, campus scholarships and OPT work experience.',a:'4,000+',b:'1–3 yrs',c:'Fall & Spring',i:'https://gostudyin.com/wp-content/uploads/2025/03/study-in-usa-home.jpg'},
+  ae:{n:'Dubai',t:'International branch campuses close to home, with lower living costs.',a:'30+',b:'Job-seeker visa',c:'Sep & Jan',i:'https://gostudyin.com/wp-content/uploads/2025/03/study-in-dubai-home.jpg'},
+  au:{n:'Australia',t:'Strong graduate outcomes, generous work rights and eight top-100 universities.',a:'40+',b:'2–4 yrs',c:'Feb & Jul',i:'https://gostudyin.com/wp-content/uploads/2025/03/study-in-aus-home.jpg'},
+  nz:{n:'New Zealand',t:'Smaller class sizes, lower fees and a three-year post-study work visa.',a:'8',b:'3 yrs',c:'Feb & Jul',i:'https://gostudyin.com/wp-content/uploads/2025/03/study-in-nz-home.jpg'}
+};
+const nodes = [...document.querySelectorAll('.node')];
+const pv = {img:document.getElementById('pvImg'),n:document.getElementById('pvName'),t:document.getElementById('pvText'),
+            a:document.getElementById('pvA'),b:document.getElementById('pvB'),c:document.getElementById('pvC'),cta:document.getElementById('pvCta')};
+const skyStudi = document.getElementById('skyStudi');
+let pvTimer = null;
+
+function show(node){
+  const d = D[node.dataset.d]; if(!d) return;
+  nodes.forEach(x => x.classList.toggle('on', x === node));
+  clearTimeout(pvTimer);
+  pv.img.style.opacity = '.25';
+  pvTimer = setTimeout(() => { pv.img.src = d.i; pv.img.style.opacity = '1'; }, 180);
+  pv.n.textContent = d.n; pv.t.textContent = d.t;
+  pv.a.textContent = d.a; pv.b.textContent = d.b; pv.c.textContent = d.c;
+  pv.cta.textContent = 'Explore ' + (d.n === 'United Kingdom' ? 'UK' : d.n === 'United States' ? 'the US' : d.n) + ' →';
+  skyStudi.style.left = node.style.left;
+  skyStudi.style.top  = node.style.top;
+}
+nodes.forEach(n => {
+  n.addEventListener('mouseenter', () => show(n));
+  n.addEventListener('focus', () => show(n));
+  n.addEventListener('click', (e) => { e.preventDefault(); show(n); });
+});
+show(nodes[0]);
+
+/* ---------------- 8. Journey illumination on scroll ---------------- */
+const track = document.getElementById('track');
+const jlit  = document.getElementById('jlit');
+const steps = [...document.querySelectorAll('[data-step]')];
+if(jlit){
+  const L = jlit.getTotalLength();
+  jlit.style.strokeDasharray = L; jlit.style.strokeDashoffset = L;
+  const onScroll = () => {
+    const r = track.getBoundingClientRect();
+    const p = Math.max(0, Math.min(1, (innerHeight*0.85 - r.top) / (r.height + innerHeight*0.45)));
+    jlit.style.strokeDashoffset = L * (1 - p);
+    steps.forEach((s,i) => s.classList.toggle('on', p > (i * 0.22) + 0.06));
+  };
+  addEventListener('scroll', onScroll, {passive:true}); onScroll();
+}
+
+/* ---------------- 9. Studi guidance system ---------------- */
+const dockBtn = document.getElementById('dockBtn');
+const panel = document.getElementById('panel');
+const body = document.getElementById('panelBody');
+const nudge = document.getElementById('nudge');
+
+const TOPICS = [
+  ['Choosing a destination','Seven destinations, and the right one depends on budget, course and how long you want to work afterwards. Canada and New Zealand give the longest post-study work rights; Dubai keeps costs closest to home.','#destinations','Compare destinations'],
+  ['Finding a course','Tell me your study level, subject and destination and the course finder narrows 100,000+ options down to a shortlist a counsellor then reviews by hand.','#finder','Open course finder'],
+  ['Understanding applications','Most destinations need transcripts, an English test score, a personal statement and two references. We handle submissions and follow up with universities for you.','#services','See application support'],
+  ['Preparing documents','Visa files fail most often on financial evidence. We give you a destination-specific checklist and check every document before you submit.','#services','See visa guidance'],
+  ['Upcoming events','University fairs, webinars and open days run in 40+ countries. The next fair in Dhaka is on 14 September with on-the-spot offers.','#events','See what\u2019s on'],
+  ['Booking counselling','Counselling is free and there is no obligation to apply anywhere. You will speak to a counsellor for your destination, not a call centre.','#counselling','Book free counselling'],
+  ['Frequently asked questions','StudyIn has guided students since 2006 through 100+ branches, with a 4.7/5.0 rating from 52,000 reviews. Our student services are free — universities pay us, and we are AQF-certified so advice stays impartial.','#resources','Browse resources']
+];
+
+function menu(){
+  body.innerHTML = '';
+  TOPICS.forEach((t,i) => {
+    const b = document.createElement('button');
+    b.className = 'opt'; b.textContent = t[0];
+    b.addEventListener('click', () => answer(i));
+    body.appendChild(b);
+  });
+}
+function answer(i){
+  const t = TOPICS[i];
+  body.innerHTML = '';
+  const back = document.createElement('button');
+  back.className = 'back'; back.textContent = '← All topics';
+  back.addEventListener('click', menu);
+  const p = document.createElement('div');
+  p.className = 'answer'; p.textContent = t[1];
+  const go = document.createElement('button');
+  go.className = 'go'; go.textContent = t[3];
+  go.addEventListener('click', () => {
+    close();
+    document.querySelector(t[2]).scrollIntoView({behavior: reduced() ? 'auto' : 'smooth'});
+  });
+  p.appendChild(document.createElement('br'));
+  p.appendChild(go);
+  body.append(back, p);
+}
+function open(){ panel.classList.add('on'); dockBtn.setAttribute('aria-expanded','true'); nudge.classList.remove('on'); body.querySelector('button')?.focus(); }
+function close(){ panel.classList.remove('on'); dockBtn.setAttribute('aria-expanded','false'); }
+menu();
+dockBtn.addEventListener('click', () => panel.classList.contains('on') ? close() : open());
+document.getElementById('panelClose').addEventListener('click', () => { close(); dockBtn.focus(); });
+addEventListener('keydown', e => { if(e.key === 'Escape' && panel.classList.contains('on')){ close(); dockBtn.focus(); } });
+
+/* ---------------- 10. Gentle stuck-detection (max once) ---------------- */
+let idle = null, nudged = false;
+function resetIdle(){
+  if(nudged) return;
+  clearTimeout(idle);
+  idle = setTimeout(() => {
+    if(nudged || panel.classList.contains('on')) return;
+    nudged = true;
+    nudge.classList.add('on');
+    setTimeout(() => nudge.classList.remove('on'), 6000);
+  }, 40000);
+}
+['scroll','pointerdown','keydown'].forEach(ev => addEventListener(ev, resetIdle, {passive:true}));
+resetIdle();
+
+/* ---------------- 11. Mobile menu ---------------- */
+document.querySelector('.burger').addEventListener('click', () => {
+  const links = document.querySelector('.nav-links');
+  const open = links.style.display === 'flex';
+  Object.assign(links.style, open ? {display:''} : {
+    display:'flex', position:'absolute', top:'100%', left:0, right:0,
+    flexDirection:'column', alignItems:'stretch', gap:'2px',
+    background:'rgba(7,11,31,.98)', backdropFilter:'blur(18px)',
+    padding:'14px 20px 20px', borderBottom:'1px solid rgba(184,255,106,.16)'
+  });
+  document.querySelector('.nav-cta').style.display = open ? '' : 'inline-flex';
+  nav.classList.add('solid');
+});
+})();
+</script>
+</body>
+</html>
